@@ -15,8 +15,9 @@ public class Player : MonoBehaviour
     [SerializeField] protected int _Intelligence = 6;
     
     
-    [SerializeField] protected float _Speed = 10.0f;
+    [SerializeField] protected float _Speed = 1;
     [SerializeField] protected int _Health = 10;
+    
     [SerializeField] protected float _AttackRate = 1.0f;
     
     [SerializeField] protected GameObject _Attack1Prefab = default;
@@ -32,6 +33,9 @@ public class Player : MonoBehaviour
     private SpawnManager _spawnManager;
     private float _canAttack = -1f;
     private float _initialAttackRate;
+    private int _healthMax;
+    private float _speedMax;
+
     //private bool _isAttackSpeedBuffed = false;
     private GameObject _shield;
     private Animator _animator;
@@ -44,6 +48,7 @@ public class Player : MonoBehaviour
         _initialAttackRate= _AttackRate;
         _shield = transform.GetChild(0).gameObject;
         _animator = GetComponent<Animator>();
+        _healthMax = _Health * _Constitution;
     }
     // Update is called once per frame
     void Update()

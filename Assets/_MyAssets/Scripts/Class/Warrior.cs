@@ -17,5 +17,10 @@ public class Warrior : Player
     {
         MouvementsJoueur();
     }
+
+    protected void Attack1()
+    {
+        
+    }
     
 }
