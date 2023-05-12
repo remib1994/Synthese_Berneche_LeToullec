@@ -31,12 +31,20 @@ public class Player : MonoBehaviour
     [SerializeField] protected AudioClip _Attack4Sound = default;
     [SerializeField] protected AudioClip _DeathSound = default;
     private SpawnManager _spawnManager;
-    private float _canAttack = -1f;
+    private float _canAttack1 = -1f;
+    private float _canAttack2 = -1f;
+    private float _canAttack3 = -1f;
+    private float _canAttack4 = -1f;
+
+    private float _CDAttack1 = 5f;
+    private float _CDAttack2 = 10f;
+    private float _CDAttack3 = 15f;
+    private float _CDAttack4 = 20f;
     private float _initialAttackRate;
     private int _healthMax;
     private float _speedMax;
 
-    //private bool _isAttackSpeedBuffed = false;
+    private bool _isAttackSpeedBuffed = false;
     private GameObject _shield;
     private Animator _animator;
 
@@ -55,19 +63,50 @@ public class Player : MonoBehaviour
     {
         MouvementsJoueur();
         Attack1();
+        Attack2();
+        Attack3();
+        Attack4();
     }
 
     protected void Attack1()
     {
-        if (Input.GetKey(KeyCode.Space) && Time.time > _canAttack)
+        if(Input.GetKey("Attack1") && Time.time > _canAttack1)
         {
-            _canAttack = Time.time + _AttackRate;
-            //Jouer le son de l'attaque
-            AudioSource.PlayClipAtPoint(_Attack1Sound, Camera.main.transform.position, 0.3f);
-            Instantiate(_Attack1Prefab, transform.position + new Vector3(0f, 1f, 0f), Quaternion.identity);
+            _canAttack1 = Time.time + _AttackRate;
+            Instantiate(_Attack1Prefab, transform.position, Quaternion.identity);
+            AudioSource.PlayClipAtPoint(_Attack1Sound, transform.position);
         }
-        
     }
+
+    protected void Attack2()
+    {
+        if(Input.GetKey("Attack2") && Time.time > _canAttack2)
+        {
+            _canAttack2 = Time.time + _AttackRate;
+            Instantiate(_Attack1Prefab, transform.position, Quaternion.identity);
+            AudioSource.PlayClipAtPoint(_Attack1Sound, transform.position);
+        }
+    }
+    protected void Attack3()
+    {
+        if(Input.GetKey("Attack3") && Time.time > _canAttack3)
+        {
+            _canAttack3 = Time.time + _AttackRate;
+            Instantiate(_Attack1Prefab, transform.position, Quaternion.identity);
+            AudioSource.PlayClipAtPoint(_Attack1Sound, transform.position);
+        }
+    }
+    protected void Attack4()
+    {
+        if(Input.GetKey("Attack4") && Time.time > _canAttack4)
+        {
+         // Calcul CD
+         // _canAttack4 = Time.time + (_CDAttack4-(_Intelligence*0.02f);
+            Instantiate(_Attack1Prefab, transform.position, Quaternion.identity);
+            AudioSource.PlayClipAtPoint(_Attack1Sound, transform.position);
+        }
+    }
+    
     
 
     protected void MouvementsJoueur()
