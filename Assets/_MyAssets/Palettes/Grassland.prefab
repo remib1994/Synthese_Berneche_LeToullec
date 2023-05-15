@@ -18785,7 +18785,7 @@ GameObject:
   - component: {fileID: 4626398263905445299}
   - component: {fileID: 4931515072013423524}
   m_Layer: 0
-  m_Name: Tileset Grassland_304
+  m_Name: Grassland
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
