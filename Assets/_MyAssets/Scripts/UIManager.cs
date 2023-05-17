@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour  {
     
     [SerializeField] private int _score =  default;
     [SerializeField] private TextMeshProUGUI _txtScore = default;
+    [SerializeField] private TextMeshProUGUI _txtTemps = default;
     [SerializeField] private TextMeshProUGUI _txtGameOver = default;
     [SerializeField] private TextMeshProUGUI _txtRestart = default;
     [SerializeField] private TextMeshProUGUI _txtQuit = default;
@@ -21,12 +22,16 @@ public class UIManager : MonoBehaviour  {
 
     private void Start() {
         _score = 0;
+        Time.timeScale = 1;
         _txtGameOver.gameObject.SetActive(false);
         ChangeLivesDisplayImage(3);
         UpdateScore();
     }
 
     private void Update() {
+
+        _txtTemps.text = "Temps : " + Time.time.ToString("f2");
+
         if (_txtRestart.gameObject.activeSelf && Input.GetKeyDown(KeyCode.R)) {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
