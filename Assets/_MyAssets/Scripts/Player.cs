@@ -2,20 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Assets.HeroEditor4D.Common.Scripts.CharacterScripts;
+using Assets.HeroEditor4D.Common.Scripts.Enums;
 
 public class Player : MonoBehaviour
 {
     // Start is called before the first frame update
     
     //Stats
-    
+    [SerializeField] protected Character4D _character;
+    [SerializeField] protected AnimationManager _animation;
     [SerializeField] protected int _Strength = 6;    
     [SerializeField] protected int _Dexterity = 6;
     [SerializeField] protected int _Constitution = 6;
     [SerializeField] protected int _Intelligence = 6;
     
     
-    [SerializeField] protected float _Speed = 1;
+    [SerializeField] protected float _Speed = 10;
     [SerializeField] protected int _Health = 10;
     
     [SerializeField] protected float _AttackRate = 1.0f;
@@ -52,6 +55,8 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        _character.SetDirection(Vector2.down);
+        _animation.SetState(CharacterState.Idle);
         _spawnManager = GameObject.FindObjectOfType<SpawnManager>();
         _initialAttackRate= _AttackRate;
         _shield = transform.GetChild(0).gameObject;
@@ -70,8 +75,9 @@ public class Player : MonoBehaviour
 
     protected void Attack1()
     {
-        if(Input.GetKey("Attack1") && Time.time > _canAttack1)
+        if(Input.GetButton("Attack1") && Time.time > _canAttack1)
         {
+            _animation.Attack();
             _canAttack1 = Time.time + _AttackRate;
             Instantiate(_Attack1Prefab, transform.position, Quaternion.identity);
             AudioSource.PlayClipAtPoint(_Attack1Sound, transform.position);
@@ -80,8 +86,9 @@ public class Player : MonoBehaviour
 
     protected void Attack2()
     {
-        if(Input.GetKey("Attack2") && Time.time > _canAttack2)
+        if(Input.GetButton("Attack2") && Time.time > _canAttack2)
         {
+            _animation.Jab();
             _canAttack2 = Time.time + _AttackRate;
             Instantiate(_Attack1Prefab, transform.position, Quaternion.identity);
             AudioSource.PlayClipAtPoint(_Attack1Sound, transform.position);
@@ -89,7 +96,7 @@ public class Player : MonoBehaviour
     }
     protected void Attack3()
     {
-        if(Input.GetKey("Attack3") && Time.time > _canAttack3)
+        if(Input.GetButton("Attack3") && Time.time > _canAttack3)
         {
             _canAttack3 = Time.time + _AttackRate;
             Instantiate(_Attack1Prefab, transform.position, Quaternion.identity);
@@ -98,7 +105,7 @@ public class Player : MonoBehaviour
     }
     protected void Attack4()
     {
-        if(Input.GetKey("Attack4") && Time.time > _canAttack4)
+        if(Input.GetButton("Attack4") && Time.time > _canAttack4)
         {
          // Calcul CD
          // _canAttack4 = Time.time + (_CDAttack4-(_Intelligence*0.02f);
@@ -106,41 +113,42 @@ public class Player : MonoBehaviour
             AudioSource.PlayClipAtPoint(_Attack1Sound, transform.position);
         }
     }
-    
-    
+
+
 
     protected void MouvementsJoueur()
     {
         float horizInput = Input.GetAxis("Horizontal");
         float VertInput = Input.GetAxis("Vertical");
         Vector3 direction = new Vector3(horizInput, VertInput, 0f);
-        
+
         //Gestion des animations
         if (horizInput > 0)
         {
-            _animator.SetBool("TurnRight", true);
-            _animator.SetBool("TurnLeft", false);
+            _character.SetDirection(Vector2.right);
         }
         else if (horizInput < 0)
         {
-            _animator.SetBool("TurnRight", false);
-            _animator.SetBool("TurnLeft", true);
+            _character.SetDirection(Vector2.left);
+        }
+        else if (VertInput > 0)
+        {
+            _character.SetDirection(Vector2.up);
+        }
+        else if (VertInput < 0)
+        {
+            _character.SetDirection(Vector2.down);
+        }
+
+
+        transform.Translate(direction * Time.deltaTime * _Speed);
+        if (horizInput == 0 && VertInput == 0)
+        {
+            _animation.SetState(CharacterState.Idle);
         }
         else
         {
-            _animator.SetBool("TurnLeft", false);
-            _animator.SetBool("TurnRight", false);
-        }
-        
-        transform.Translate(direction * Time.deltaTime * _Speed);
-        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -4.5f, 4.5f), 0f);
-        if (transform.position.x > 9.5f)
-        {
-            transform.position = new Vector3(-9.5f, transform.position.y, 0f);
-        }
-        else if (transform.position.x < -9.5f)
-        {
-            transform.position = new Vector3(9.5f, transform.position.y, 0f);
+            _animation.SetState(CharacterState.Run); 
         }
     }
 

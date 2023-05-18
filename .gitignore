@@ -115,3 +115,9 @@ fabric.properties
 
 # *.iml
 # modules.xml
+
+
+
+
+###################### a enlever prochaine fois ################
+.idea/
