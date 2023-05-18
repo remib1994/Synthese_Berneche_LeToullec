@@ -17,7 +17,8 @@ public class Player : MonoBehaviour
     
     [SerializeField] protected float _Speed = 1;
     [SerializeField] protected int _Health = 10;
-    
+    [SerializeField] protected BarreDeVie _barreDeVie;
+
     [SerializeField] protected float _AttackRate = 1.0f;
     
     [SerializeField] protected GameObject _Attack1Prefab = default;
@@ -35,8 +36,6 @@ public class Player : MonoBehaviour
     private float _initialAttackRate;
     private int _healthMax;
     private float _speedMax;
-
-    public BarreDeVie _barreDeVie;
 
     //private bool _isAttackSpeedBuffed = false;
     private GameObject _shield;

@@ -32,6 +32,20 @@ public class UIManager : MonoBehaviour  {
 
         _txtTemps.text = "Temps : " + Time.time.ToString("f2");
 
+        // Permet la gestion du panneau de pause (marche/arrêt)
+        if ((Input.GetKeyDown(KeyCode.Escape) && !_pauseOn))
+        {
+            _pausePanel.SetActive(true);
+            Time.timeScale = 0;
+            _pauseOn = true;
+        }
+        else if ((Input.GetKeyDown(KeyCode.Escape) && _pauseOn))
+        {
+            _pausePanel.SetActive(false);
+            Time.timeScale = 1;
+            _pauseOn = false;
+        }
+
         if (_txtRestart.gameObject.activeSelf && Input.GetKeyDown(KeyCode.R)) {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
