@@ -36,6 +36,8 @@ public class Player : MonoBehaviour
     private int _healthMax;
     private float _speedMax;
 
+    public BarreDeVie _barreDeVie;
+
     //private bool _isAttackSpeedBuffed = false;
     private GameObject _shield;
     private Animator _animator;
@@ -49,13 +51,28 @@ public class Player : MonoBehaviour
         _shield = transform.GetChild(0).gameObject;
         _animator = GetComponent<Animator>();
         _healthMax = _Health * _Constitution;
+        _barreDeVie.SetMaxHealth(_healthMax);
     }
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TakeDamage(10);
+        }
+
         MouvementsJoueur();
         Attack1();
     }
+
+    // CODE POUR FAIRE PERDRE DE LA VIE
+    void TakeDamage(int damage)
+    {
+        _Health -= damage;
+
+        _barreDeVie.SetHealth(_Health);
+    }
+    // CODE POUR FAIRE PERDRE DE LA VIE
 
     protected void Attack1()
     {
