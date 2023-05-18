@@ -519,12 +519,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _character: {fileID: 114216053546988558}
   _animation: {fileID: 114299399650273240}
-  _Strength: 6
+  _strength: 6
   _Dexterity: 6
-  _Constitution: 6
   _Intelligence: 6
   _Speed: 10
-  _Health: 10
+  _health: 0
   _AttackRate: 1
   _Attack1Prefab: {fileID: 0}
   _Attack2Prefab: {fileID: 0}

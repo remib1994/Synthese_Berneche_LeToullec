@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Assets.HeroEditor4D.Common.Scripts.CharacterScripts;
 using Assets.HeroEditor4D.Common.Scripts.Enums;
+using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
@@ -12,14 +13,13 @@ public class Player : MonoBehaviour
     //Stats
     [SerializeField] protected Character4D _character;
     [SerializeField] protected AnimationManager _animation;
-    [SerializeField] protected int _Strength = 6;    
+    [SerializeField] protected int _strength = 6;    
     [SerializeField] protected int _Dexterity = 6;
-    [SerializeField] protected int _Constitution = 6;
     [SerializeField] protected int _Intelligence = 6;
     
     
     [SerializeField] protected float _Speed = 10;
-    [SerializeField] protected int _Health = 10;
+    [SerializeField] protected int _health;
     
     [SerializeField] protected float _AttackRate = 1.0f;
     
@@ -49,19 +49,23 @@ public class Player : MonoBehaviour
 
     private bool _isAttackSpeedBuffed = false;
     private GameObject _shield;
-    private Animator _animator;
+    private Animator _shieldAnimator;
+    
 
 
 
     void Start()
     {
+        _healthMax = _strength * 10;
+        _health= _strength * 10;
         _character.SetDirection(Vector2.down);
         _animation.SetState(CharacterState.Idle);
         _spawnManager = GameObject.FindObjectOfType<SpawnManager>();
         _initialAttackRate= _AttackRate;
+        
         _shield = transform.GetChild(0).gameObject;
-        _animator = GetComponent<Animator>();
-        _healthMax = _Health * _Constitution;
+        _shieldAnimator = _shield.GetComponent<Animator>();
+
     }
     // Update is called once per frame
     void Update()
@@ -107,11 +111,18 @@ public class Player : MonoBehaviour
     {
         if(Input.GetButton("Attack4") && Time.time > _canAttack4)
         {
-         // Calcul CD
-         // _canAttack4 = Time.time + (_CDAttack4-(_Intelligence*0.02f);
-            Instantiate(_Attack1Prefab, transform.position, Quaternion.identity);
-            AudioSource.PlayClipAtPoint(_Attack1Sound, transform.position);
+            _shield.SetActive(true);
+            //AudioSource.PlayClipAtPoint(_Attack1Sound, transform.position);
+            StartCoroutine(ShieldRoutine());
+            
         }
+    }
+
+    IEnumerator ShieldRoutine()
+    {
+        yield return new WaitForSeconds(5f);
+        _shieldAnimator.SetBool("ShieldActif", false);
+        _shield.SetActive(false);
     }
 
 
@@ -139,8 +150,7 @@ public class Player : MonoBehaviour
         {
             _character.SetDirection(Vector2.down);
         }
-
-
+        
         transform.Translate(direction * Time.deltaTime * _Speed);
         if (horizInput == 0 && VertInput == 0)
         {
@@ -153,20 +163,22 @@ public class Player : MonoBehaviour
     }
 
     //Methode public
-    public void Damage()
+    public void Damage(int damage)
     {
         if(_shield.activeSelf==true){
+            _shieldAnimator.SetBool("ShieldActif", false);
             _shield.SetActive(false);
         }
-        else{
-            --_Health;
-            UIManager _uiManager = FindObjectOfType<UIManager>();
-            _uiManager.ChangeLivesDisplayImage(_Health);
-        }
-        if (_Health < 1)
+        else
         {
-            Instantiate(_DeathPrefab, transform.position, Quaternion.identity);
-            Destroy(this.gameObject);
+            _animation.Hit();
+            _health-=damage;
+            /* UIManager _uiManager = FindObjectOfType<UIManager>();
+            _uiManager.ChangeLivesDisplayImage(_Health); */
+        }
+        if (_health < 1)
+        {
+            _animation.Die();
             _spawnManager.OnPlayerDeath();
            
         }
