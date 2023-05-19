@@ -169,7 +169,8 @@ public class Player : MonoBehaviour
             _character.SetDirection(Vector2.down);
         }
 
-        transform.Translate(direction * Time.deltaTime * _Speed);
+        Rigidbody2D rb2D = GetComponent<Rigidbody2D>();
+        rb2D.velocity = direction * _Speed;
         if (horizInput == 0 && VertInput == 0)
         {
             _animation.SetState(CharacterState.Idle);
