@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 using Assets.HeroEditor4D.Common.Scripts.CharacterScripts;
@@ -8,6 +9,7 @@ using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
+    public int Strength => _strength;
     // Start is called before the first frame update
     
     //Stats
@@ -26,21 +28,18 @@ public class Player : MonoBehaviour
     [SerializeField] protected GameObject _Attack1Prefab = default;
     [SerializeField] protected GameObject _Attack2Prefab = default;
     [SerializeField] protected GameObject _Attack3Prefab = default;
-    [SerializeField] protected GameObject _Attack4Prefab = default;
-    [SerializeField] protected GameObject _DeathPrefab = default;
-    [SerializeField] protected AudioClip _Attack1Sound = default;
-    [SerializeField] protected AudioClip _Attack2Sound = default;
-    [SerializeField] protected AudioClip _Attack3Sound = default;
-    [SerializeField] protected AudioClip _Attack4Sound = default;
+    [SerializeField] protected AudioClip[] _Attack1Sound = default;
+    [SerializeField] protected AudioClip[] _Attack2Sound = default;
+    [SerializeField] protected AudioClip[] _Attack3Sound = default;
+    [SerializeField] protected AudioClip[] _Attack4Sound = default;
     [SerializeField] protected AudioClip _DeathSound = default;
+    
     private SpawnManager _spawnManager;
     private float _canAttack1 = -1f;
     private float _canAttack2 = -1f;
     private float _canAttack3 = -1f;
     private float _canAttack4 = -1f;
 
-    private float _CDAttack1 = 5f;
-    private float _CDAttack2 = 10f;
     private float _CDAttack3 = 15f;
     private float _CDAttack4 = 20f;
     private float _initialAttackRate;
@@ -79,40 +78,46 @@ public class Player : MonoBehaviour
 
     protected void Attack1()
     {
-        if(Input.GetButton("Attack1") && Time.time > _canAttack1)
+        if(Input.GetButtonDown("Attack1") && Time.time > _canAttack1)
         {
+            int randomSound = Random.Range(0, _Attack1Sound.Length);
             _animation.Attack();
             _canAttack1 = Time.time + _AttackRate;
-            Instantiate(_Attack1Prefab, transform.position, Quaternion.identity);
-            AudioSource.PlayClipAtPoint(_Attack1Sound, transform.position);
+            Instantiate(_Attack1Prefab, transform.position, transform.rotation);
+            AudioSource.PlayClipAtPoint(_Attack1Sound[randomSound], transform.position);
+            
         }
     }
 
     protected void Attack2()
     {
-        if(Input.GetButton("Attack2") && Time.time > _canAttack2)
+        if(Input.GetButtonDown("Attack2") && Time.time > _canAttack2)
         {
+            int randomSound = Random.Range(0, _Attack2Sound.Length);
             _animation.Jab();
             _canAttack2 = Time.time + _AttackRate;
-            Instantiate(_Attack1Prefab, transform.position, Quaternion.identity);
-            AudioSource.PlayClipAtPoint(_Attack1Sound, transform.position);
+            Instantiate(_Attack2Prefab, transform.position, Quaternion.identity);
+            AudioSource.PlayClipAtPoint(_Attack2Sound[randomSound], transform.position);
         }
     }
     protected void Attack3()
     {
-        if(Input.GetButton("Attack3") && Time.time > _canAttack3)
+        if(Input.GetButtonDown("Attack3") && Time.time > _canAttack3)
         {
+            int randomSound = Random.Range(0, _Attack2Sound.Length);
             _canAttack3 = Time.time + _AttackRate;
-            Instantiate(_Attack1Prefab, transform.position, Quaternion.identity);
-            AudioSource.PlayClipAtPoint(_Attack1Sound, transform.position);
+            Instantiate(_Attack3Prefab, transform.position, Quaternion.identity);
+            AudioSource.PlayClipAtPoint(_Attack3Sound[randomSound], transform.position);
         }
     }
     protected void Attack4()
     {
-        if(Input.GetButton("Attack4") && Time.time > _canAttack4)
+        if(Input.GetButtonDown("Attack4") && Time.time > _canAttack4)
         {
+            int randomSound = Random.Range(0, _Attack2Sound.Length);
+            _shieldAnimator.SetBool("ShieldActif", true);
             _shield.SetActive(true);
-            //AudioSource.PlayClipAtPoint(_Attack1Sound, transform.position);
+            AudioSource.PlayClipAtPoint(_Attack4Sound[randomSound], transform.position);
             StartCoroutine(ShieldRoutine());
             
         }
@@ -122,6 +127,7 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         _shieldAnimator.SetBool("ShieldActif", false);
+        yield return new WaitForSeconds(1f);
         _shield.SetActive(false);
     }
 
@@ -173,8 +179,7 @@ public class Player : MonoBehaviour
         {
             _animation.Hit();
             _health-=damage;
-            /* UIManager _uiManager = FindObjectOfType<UIManager>();
-            _uiManager.ChangeLivesDisplayImage(_Health); */
+
         }
         if (_health < 1)
         {
