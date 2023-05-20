@@ -171,6 +171,7 @@ public class Player : MonoBehaviour
 
         Rigidbody2D rb2D = GetComponent<Rigidbody2D>();
         rb2D.velocity = direction * _Speed;
+
         if (horizInput == 0 && VertInput == 0)
         {
             _animation.SetState(CharacterState.Idle);

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+
     // Start is called before the first frame update
     [SerializeField] private GameObject _EnemyPrefab = default;
     [SerializeField] private GameObject _EnemyContainer = default;
@@ -20,7 +21,7 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnPURoutine()
     {
-        yield return new WaitForSeconds(Random.Range(2.0f,4.0f));
+        yield return new WaitForSeconds(Random.Range(2.0f, 4.0f));
         while (!_StopSpawning)
         {
             Vector3 posToSpawn = new Vector3(Random.Range(-8.5f, 8.5f), 7f, 0f);
@@ -48,6 +49,7 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
+
 }
