@@ -6232,12 +6232,11 @@ TextureImporter:
       GrasslandColor2@64x64_167: 21300334
       GrasslandColor2@64x64_253: 21300506
       GrasslandColor2@64x64_97: 21300194
-      GrasslandColor2@64x64_237: 21300474
       GrasslandColor2@64x64_57: 21300114
       GrasslandColor2@64x64_31: 21300062
+      GrasslandColor2@64x64_116: 21300232
       GrasslandColor2@64x64_218: 21300436
       GrasslandColor2@64x64_120: 21300240
-      GrasslandColor2@64x64_116: 21300232
       GrasslandColor2@64x64_82: 21300164
       GrasslandColor2@64x64_18: 21300036
       GrasslandColor2@64x64_66: 21300132
@@ -6280,6 +6279,7 @@ TextureImporter:
       GrasslandColor2@64x64_41: 21300082
       GrasslandColor2@64x64_152: 21300304
       GrasslandColor2@64x64_200: 21300400
+      GrasslandColor2@64x64_237: 21300474
       GrasslandColor2@64x64_191: 21300382
       GrasslandColor2@64x64_125: 21300250
       GrasslandColor2@64x64_151: 21300302
@@ -6294,8 +6294,8 @@ TextureImporter:
       GrasslandColor2@64x64_204: 21300408
       GrasslandColor2@64x64_16: 21300032
       GrasslandColor2@64x64_130: 21300260
-      GrasslandColor2@64x64_214: 21300428
       GrasslandColor2@64x64_187: 21300374
+      GrasslandColor2@64x64_214: 21300428
       GrasslandColor2@64x64_35: 21300070
       GrasslandColor2@64x64_133: 21300266
       GrasslandColor2@64x64_42: 21300084
@@ -6317,7 +6317,6 @@ TextureImporter:
       GrasslandColor2@64x64_178: 21300356
       GrasslandColor2@64x64_52: 21300104
       GrasslandColor2@64x64_139: 21300278
-      GrasslandColor2@64x64_132: 21300264
       GrasslandColor2@64x64_17: 21300034
       GrasslandColor2@64x64_61: 21300122
       GrasslandColor2@64x64_29: 21300058
@@ -6336,6 +6335,7 @@ TextureImporter:
       GrasslandColor2@64x64_60: 21300120
       GrasslandColor2@64x64_30: 21300060
       GrasslandColor2@64x64_119: 21300238
+      GrasslandColor2@64x64_132: 21300264
       GrasslandColor2@64x64_36: 21300072
       GrasslandColor2@64x64_164: 21300328
       GrasslandColor2@64x64_6: 21300012
@@ -6355,10 +6355,10 @@ TextureImporter:
       GrasslandColor2@64x64_143: 21300286
       GrasslandColor2@64x64_118: 21300236
       GrasslandColor2@64x64_63: 21300126
-      GrasslandColor2@64x64_196: 21300392
       GrasslandColor2@64x64_0: 21300000
       GrasslandColor2@64x64_49: 21300098
       GrasslandColor2@64x64_78: 21300156
+      GrasslandColor2@64x64_196: 21300392
       GrasslandColor2@64x64_241: 21300482
       GrasslandColor2@64x64_102: 21300204
       GrasslandColor2@64x64_115: 21300230
@@ -6373,9 +6373,9 @@ TextureImporter:
       GrasslandColor2@64x64_71: 21300142
       GrasslandColor2@64x64_232: 21300464
       GrasslandColor2@64x64_44: 21300088
+      GrasslandColor2@64x64_157: 21300314
       GrasslandColor2@64x64_184: 21300368
       GrasslandColor2@64x64_249: 21300498
-      GrasslandColor2@64x64_157: 21300314
       GrasslandColor2@64x64_68: 21300136
       GrasslandColor2@64x64_140: 21300280
       GrasslandColor2@64x64_144: 21300288

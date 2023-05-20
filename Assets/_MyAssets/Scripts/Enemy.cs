@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour
         }else if (collision.tag == "Player" )
         {
             Player player = collision.GetComponent<Player>();
-            player.Damage(5);
+            player.Damage();
             Instantiate(_ExplosionPrefab, transform.position, Quaternion.identity);
             Destroy(this.gameObject);
         }
