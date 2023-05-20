@@ -1,50 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using Pathfinding;
+using Assets.HeroEditor4D.Common.Scripts.CharacterScripts;
+using Assets.HeroEditor4D.Common.Scripts.Enums;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    [SerializeField] private float _Vitesse = 6.0f;
-    [SerializeField] private int _Point = 100;
-    [SerializeField] private GameObject _ExplosionPrefab = default;
-    private UIManager _uiManager;
+    public AIPath aiPath;
 
-    void Start()
-    {
-        _uiManager = FindObjectOfType<UIManager>();
-    }
+    [SerializeField] protected Character4D _character;
+    [SerializeField] protected AnimationManager _animation;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        MouvementsEnemy();
-    }
+        Vector2 direction = aiPath.desiredVelocity.normalized;
 
-    private void MouvementsEnemy()
-    {
-        transform.Translate(Vector3.down * Time.deltaTime * _Vitesse);
-        if (transform.position.y < -7f)
+        if (direction.magnitude > 0.01f)
         {
-            float randomX = Random.Range(-8.5f, 8.5f);
-            transform.position = new Vector3(randomX, 7f, 0f);
+            if (direction.x >= 0.01f)
+            {
+                _character.SetDirection(Vector2.right);
+            }
+            else if (direction.x <= -0.01f)
+            {
+                _character.SetDirection(Vector2.left);
+            }
+            else if (direction.y >= 0.01f)
+            {
+                _character.SetDirection(Vector2.up);
+            }
+            else if (direction.y <= -0.01f)
+            {
+                _character.SetDirection(Vector2.down);
+            }
+
+            _animation.SetState(CharacterState.Run);
         }
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Laser")
+        else
         {
-            Destroy(collision.gameObject);
-            _uiManager.AjouterScore(_Point);
-            Instantiate(_ExplosionPrefab, transform.position, Quaternion.identity);
-            Destroy(this.gameObject);
-        }else if (collision.tag == "Player" )
-        {
-            Player player = collision.GetComponent<Player>();
-            player.Damage(10);
-            Instantiate(_ExplosionPrefab, transform.position, Quaternion.identity);
-            Destroy(this.gameObject);
+            _animation.SetState(CharacterState.Idle);
         }
     }
 }
