@@ -92,14 +92,43 @@ public class Enemy : MonoBehaviour
         isAttacking = false;
     }
 
-    public void Damage(int damage)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        _health -= damage;
-        //_barreDeVie.SetVie(_health);
-        if (_health <= 0)
+        if (other.tag == "Slash")
         {
-            _uiManager.AjouterScore(_points);
-            Destroy(this.gameObject);
+            if (_health > 0)
+            {
+                _health -= 10;
+                _barreDeVie.SetHealth(_health);
+                if (_health <= 0)
+                {
+                    _uiManager = FindObjectOfType<UIManager>();
+                    if (_uiManager != null)
+                    {
+                        _uiManager.AjouterScore(_points);
+                    }
+
+                    Destroy(this.gameObject);
+                }
+            }
+        }
+        if (other.tag == "Thrust")
+        {
+            if (_health > 0)
+            {
+                _health -= 5;
+                _barreDeVie.SetHealth(_health);
+                if (_health <= 0)
+                {
+                    _uiManager = FindObjectOfType<UIManager>();
+                    if (_uiManager != null)
+                    {
+                        _uiManager.AjouterScore(_points);
+                    }
+
+                    Destroy(this.gameObject);
+                }
+            }
         }
     }
 }
