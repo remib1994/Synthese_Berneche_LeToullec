@@ -6,10 +6,12 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private GameObject _container = default;
     [SerializeField] private GameObject monstrePrefab;
-    [SerializeField] private float spawnTime = 3.5f;
+    [SerializeField] private float spawnTime = 3.5f; // Temps entre chaque spawn
     [SerializeField] private float spawnRadius = 20f; // Le rayon de la zone de spawn autour du joueur
 
     private Transform playerTransform; // Référence au transform du joueur
+
+    private bool _StopSpawning = false;
 
     void Start()
     {
@@ -19,13 +21,15 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnEnemy(float spawnTime, GameObject enemy)
     {
-        yield return new WaitForSeconds(spawnTime);
+        while (!_StopSpawning)
+        {
+            yield return new WaitForSeconds(spawnTime);
 
-        Vector3 spawnPosition = GetValidSpawnPosition();
+            Vector3 spawnPosition = GetValidSpawnPosition();
 
-        GameObject newEnemy = Instantiate(enemy, spawnPosition, Quaternion.identity);
-        StartCoroutine(SpawnEnemy(spawnTime, enemy));
-        newEnemy.transform.parent = _container.transform;
+            GameObject newEnemy = Instantiate(enemy, spawnPosition, Quaternion.identity);
+            newEnemy.transform.parent = _container.transform;
+        }
     }
 
     private Vector3 GetValidSpawnPosition()
@@ -44,5 +48,11 @@ public class EnemySpawner : MonoBehaviour
         }
 
         return spawnPosition;
+    }
+
+    public void OnPlayerDeath()
+    {
+        _StopSpawning = true;
+        Destroy(_container);
     }
 }

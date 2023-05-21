@@ -9,6 +9,12 @@ public class Enemy : MonoBehaviour
 {
     public AIPath aiPath;
 
+    [SerializeField] protected int _health;
+    [SerializeField] protected BarreDeVie _barreDeVie;
+    [SerializeField] protected int _points = 100;
+
+    private UIManager _uiManager;
+
     [SerializeField] protected Character4D _character;
     [SerializeField] protected AnimationManager _animation;
 
@@ -40,6 +46,27 @@ public class Enemy : MonoBehaviour
         else
         {
             _animation.SetState(CharacterState.Idle);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            Debug.Log("Enemy collided with player"); // Vérifier si cette ligne s'affiche dans la console
+            Player player = other.transform.GetComponent<Player>();
+            player.Damage(10);  // Appeler la méthode dégats du joueur
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        _health -= damage;
+        //_barreDeVie.SetVie(_health);
+        if (_health <= 0)
+        {
+            _uiManager.AjouterScore(_points);
+            Destroy(this.gameObject);
         }
     }
 }

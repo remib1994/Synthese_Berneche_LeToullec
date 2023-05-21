@@ -1889,6 +1889,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiPath: {fileID: 0}
+  _health: 0
+  _barreDeVie: {fileID: 0}
+  _points: 100
   _character: {fileID: 4300687307934671182}
   _animation: {fileID: 4300687307934671181}
 --- !u!1 &4300687307941856758
