@@ -9,8 +9,22 @@ public class Enemy : MonoBehaviour
 {
     public AIPath aiPath;
 
+    [SerializeField] protected int _health;
+    [SerializeField] protected BarreDeVie _barreDeVie;
+    [SerializeField] protected int _points = 100;
+    [SerializeField] protected int _damage = 1;
+
+    private UIManager _uiManager;
+
     [SerializeField] protected Character4D _character;
     [SerializeField] protected AnimationManager _animation;
+
+    [SerializeField] private Animator _animator;
+
+    private bool isAttacking = false;
+    private float attackCooldown = 1f; // Délai entre chaque attaque en secondes
+    private float currentCooldown = 0f;
+
 
     private void Update()
     {
@@ -40,6 +54,52 @@ public class Enemy : MonoBehaviour
         else
         {
             _animation.SetState(CharacterState.Idle);
+        }
+
+        if (isAttacking)
+        {
+            currentCooldown -= Time.deltaTime;
+            if (currentCooldown <= 0f)
+            {
+                isAttacking = false;
+                currentCooldown = 0f;
+            }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Player player = other.transform.GetComponent<Player>();
+            player.Damage(_damage);
+
+            Vector2 enemyToPlayer = other.transform.position - transform.position;
+            float distanceToPlayer = enemyToPlayer.magnitude;
+
+            if (distanceToPlayer < 2f && !isAttacking)
+            {
+                _animation.Attack();
+                isAttacking = true;
+                currentCooldown = attackCooldown;
+            }
+        }
+    }
+
+    // Appelée depuis l'animation pour réinitialiser l'état de l'attaque
+    public void ResetAttackState()
+    {
+        isAttacking = false;
+    }
+
+    public void Damage(int damage)
+    {
+        _health -= damage;
+        //_barreDeVie.SetVie(_health);
+        if (_health <= 0)
+        {
+            _uiManager.AjouterScore(_points);
+            Destroy(this.gameObject);
         }
     }
 }

@@ -37,7 +37,8 @@ public class Player : MonoBehaviour
     [SerializeField] protected AudioClip[] _Attack4Sound = default;
     [SerializeField] protected AudioClip[] _DamageSound = default;
     
-    private SpawnManager _spawnManager;
+    private bool _isInvincible = false;
+    private EnemySpawner _enemySpawner;
     private float _canAttack1 = -1f;
     private float _canAttack2 = -1f;
     private float _canAttack3 = -1f;
@@ -63,9 +64,8 @@ public class Player : MonoBehaviour
         _health= _strength * 10;
         _character.SetDirection(Vector2.down);
         _animation.SetState(CharacterState.Idle);
-        _spawnManager = GameObject.FindObjectOfType<SpawnManager>();
-        _initialAttackRate= _AttackRate;
-        
+        _enemySpawner = GameObject.FindObjectOfType<EnemySpawner>();
+        _initialAttackRate = _AttackRate;
         _shield = transform.GetChild(0).gameObject;
         _buffParticuleFX = transform.GetChild(1).gameObject.GetComponent<ParticleSystem>();
         _shieldAnimator = _shield.GetComponent<Animator>();
@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
         Attack3();
         Attack4();
     }
-    
+  
 
     protected void Attack1()
     {
@@ -180,8 +180,6 @@ public class Player : MonoBehaviour
         _shieldAnimator.SetBool("ShieldActif", false);
     }
 
-
-
     protected void MouvementsJoueur()
     {
         float horizInput = Input.GetAxis("Horizontal");
@@ -226,7 +224,13 @@ public class Player : MonoBehaviour
     //Methode public
     public void Damage(int damage)
     {
-        if(_shield.activeSelf==true){
+        if (_isInvincible) // Si le joueur est invincible, ne subissez pas de d�g�ts
+        {
+            return;
+        }
+
+        if (_shield.activeSelf == true)
+        {
             _shieldAnimator.SetBool("ShieldActif", false);
             _shield.SetActive(false);
         }
@@ -235,16 +239,34 @@ public class Player : MonoBehaviour
             int randomSound = Random.Range(0, _DamageSound.Length-1);
             AudioSource.PlayClipAtPoint(_DamageSound[randomSound], transform.position);
             _animation.Hit();
-            _health-=damage;
+            _health -= damage;
+            _barreDeVie.SetHealth(_health);
 
+            /* UIManager _uiManager = FindObjectOfType<UIManager>();
+            _uiManager.ChangeLivesDisplayImage(_Health); */
         }
+
         if (_health < 1)
         {
             AudioSource.PlayClipAtPoint(_DamageSound[_DamageSound.Length], transform.position);
             _animation.Die();
             _spawnManager.OnPlayerDeath();
 
+            _animation.SetState(CharacterState.Death);
+            _enemySpawner.OnPlayerDeath();
+        }
+        else
+        {
+            StartCoroutine(InvincibilityRoutine());
         }
     }
+
+    IEnumerator InvincibilityRoutine()
+    {
+        _isInvincible = true;
+        yield return new WaitForSeconds(0.5f); // D�lai d'invincibilit� d'une seconde
+        _isInvincible = false;
+    }
+
 
 }

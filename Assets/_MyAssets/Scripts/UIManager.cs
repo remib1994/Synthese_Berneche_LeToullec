@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour  {
     private void Update() {
 
         _txtTemps.text = "Temps : " + Time.time.ToString("f2");
+        UpdateScore();
 
         // Permet la gestion du panneau de pause (marche/arrêt)
         if ((Input.GetKeyDown(KeyCode.Escape) && !_pauseOn))
@@ -64,12 +65,18 @@ public class UIManager : MonoBehaviour  {
             _pauseOn = false;
         }
     }
+
+    public int getScore()
+    {
+        return _score;
+    }
     public void AjouterScore(int points) {
         _score += points;
         UpdateScore();
     }
 
-    private void UpdateScore() {
+    private void UpdateScore()
+    {
         _txtScore.text = "Score : " + _score.ToString();
     }
 
