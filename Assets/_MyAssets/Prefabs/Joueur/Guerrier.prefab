@@ -489,9 +489,9 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1063387080856860}
   m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 200
+  m_SortingLayerID: -1588015321
+  m_SortingLayer: 1
+  m_SortingOrder: 3
 --- !u!70 &924145463215564539
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -523,7 +523,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -593,7 +593,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c888c10ebbbbc8f4d90a8e0bb5219db3, type: 3}
   - {fileID: 8300000, guid: ed0764f2724fe2c44a8e5d279684a631, type: 3}
   - {fileID: 8300000, guid: 7d8a19e2010ec9446953de5cfbcdddd7, type: 3}
-  _volume: 0
+  _volume: 0.05
 --- !u!1 &1075059424682908
 GameObject:
   m_ObjectHideFlags: 0
