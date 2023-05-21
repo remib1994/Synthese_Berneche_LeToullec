@@ -1555,7 +1555,6 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      WaterAnimation@64x64_45: 21300090
       WaterAnimation@64x64_7: 21300014
       WaterAnimation@64x64_46: 21300092
       WaterAnimation@64x64_0: 21300000
@@ -1602,18 +1601,19 @@ TextureImporter:
       WaterAnimation@64x64_55: 21300110
       WaterAnimation@64x64_22: 21300044
       WaterAnimation@64x64_16: 21300032
+      WaterAnimation@64x64_45: 21300090
       WaterAnimation@64x64_12: 21300024
       WaterAnimation@64x64_13: 21300026
       WaterAnimation@64x64_36: 21300072
-      WaterAnimation@64x64_37: 21300074
       WaterAnimation@64x64_38: 21300076
-      WaterAnimation@64x64_39: 21300078
+      WaterAnimation@64x64_37: 21300074
       WaterAnimation@64x64_32: 21300064
+      WaterAnimation@64x64_39: 21300078
       WaterAnimation@64x64_21: 21300042
-      WaterAnimation@64x64_44: 21300088
       WaterAnimation@64x64_19: 21300038
       WaterAnimation@64x64_9: 21300018
       WaterAnimation@64x64_14: 21300028
+      WaterAnimation@64x64_44: 21300088
       WaterAnimation@64x64_35: 21300070
   spritePackingTag: 
   pSDRemoveMatte: 0

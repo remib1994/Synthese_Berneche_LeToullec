@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     [SerializeField] protected AudioClip[] _Attack2Sound = default;
     [SerializeField] protected AudioClip[] _Attack3Sound = default;
     [SerializeField] protected AudioClip[] _Attack4Sound = default;
-    [SerializeField] protected AudioClip _DeathSound = default;
+    [SerializeField] protected AudioClip[] _DamageSound = default;
     
     private SpawnManager _spawnManager;
     private float _canAttack1 = -1f;
@@ -40,14 +40,14 @@ public class Player : MonoBehaviour
     private float _canAttack3 = -1f;
     private float _canAttack4 = -1f;
 
-    private float _CDAttack3 = 15f;
-    private float _CDAttack4 = 20f;
+    private float _cdAttack3 = 15f;
+    private float _cdAttack4 = 20f;
     private float _initialAttackRate;
     private int _healthMax;
     private float _speedMax;
 
-    private bool _isAttackSpeedBuffed = false;
     private GameObject _shield;
+    private ParticleSystem _buffParticuleFX;
     private Animator _shieldAnimator;
     
 
@@ -63,7 +63,11 @@ public class Player : MonoBehaviour
         _initialAttackRate= _AttackRate;
         
         _shield = transform.GetChild(0).gameObject;
+        _buffParticuleFX = transform.GetChild(1).gameObject.GetComponent<ParticleSystem>();
         _shieldAnimator = _shield.GetComponent<Animator>();
+        _buffParticuleFX.Stop();
+        _shield.SetActive(false);
+
 
     }
     // Update is called once per frame
@@ -83,9 +87,24 @@ public class Player : MonoBehaviour
             int randomSound = Random.Range(0, _Attack1Sound.Length);
             _animation.Attack();
             _canAttack1 = Time.time + _AttackRate;
-            Instantiate(_Attack1Prefab, transform.position, transform.rotation);
+            if(_character.Front.isActiveAndEnabled)
+            {
+                 Instantiate(_Attack1Prefab, transform.position+new Vector3(0,-.5f,0), Quaternion.Euler(0,0,0)); 
+            }
+            else if(_character.Back.isActiveAndEnabled)
+            {
+                Instantiate(_Attack1Prefab, transform.position+new Vector3(0,1f,0), Quaternion.Euler(0,0,180));
+            }
+            else if(_character.Left.isActiveAndEnabled)
+            {
+                Instantiate(_Attack1Prefab, transform.position+new Vector3(-1,0,0), Quaternion.Euler(0,0,270));
+            }
+            else if(_character.Right.isActiveAndEnabled)
+            {
+                Instantiate(_Attack1Prefab, transform.position+new Vector3(1f,0,0), Quaternion.Euler(0,0,90));
+            }
+
             AudioSource.PlayClipAtPoint(_Attack1Sound[randomSound], transform.position);
-            
         }
     }
 
@@ -96,7 +115,23 @@ public class Player : MonoBehaviour
             int randomSound = Random.Range(0, _Attack2Sound.Length);
             _animation.Jab();
             _canAttack2 = Time.time + _AttackRate;
-            Instantiate(_Attack2Prefab, transform.position, Quaternion.identity);
+            if(_character.Front.isActiveAndEnabled)
+            {
+                Instantiate(_Attack2Prefab, transform.position+new Vector3(0f,-2f,0), Quaternion.Euler(0,0,180+45)); 
+            }
+            else if(_character.Back.isActiveAndEnabled)
+            {
+                Instantiate(_Attack2Prefab, transform.position+new Vector3(0f,2.5f,0), Quaternion.Euler(0,0,45));
+            }
+            else if(_character.Left.isActiveAndEnabled)
+            {
+                Instantiate(_Attack2Prefab, transform.position+new Vector3(-3,0,0), Quaternion.Euler(0,0,90+45));
+            }
+            else if(_character.Right.isActiveAndEnabled)
+            {
+                Instantiate(_Attack2Prefab, transform.position+new Vector3(3f,.5f,0), Quaternion.Euler(0,0,270+45));
+            }
+            
             AudioSource.PlayClipAtPoint(_Attack2Sound[randomSound], transform.position);
         }
     }
@@ -104,20 +139,29 @@ public class Player : MonoBehaviour
     {
         if(Input.GetButtonDown("Attack3") && Time.time > _canAttack3)
         {
-            int randomSound = Random.Range(0, _Attack2Sound.Length);
-            _canAttack3 = Time.time + _AttackRate;
-            Instantiate(_Attack3Prefab, transform.position, Quaternion.identity);
-            AudioSource.PlayClipAtPoint(_Attack3Sound[randomSound], transform.position);
+            _buffParticuleFX.Play();
+            //int randomSound = Random.Range(0, _Attack2Sound.Length);
+            _canAttack3 = Time.time + _cdAttack3;
+            _AttackRate = _initialAttackRate / 2;
+            AudioSource.PlayClipAtPoint(_Attack3Sound[0], transform.position);
+            StartCoroutine(BuffRoutine());
         }
+    }
+    IEnumerator BuffRoutine()
+    {
+        yield return new WaitForSeconds(5f);
+        _buffParticuleFX.Stop();
+        _AttackRate = _initialAttackRate;
     }
     protected void Attack4()
     {
         if(Input.GetButtonDown("Attack4") && Time.time > _canAttack4)
         {
-            int randomSound = Random.Range(0, _Attack2Sound.Length);
+            //int randomSound = Random.Range(0, _Attack2Sound.Length);
             _shieldAnimator.SetBool("ShieldActif", true);
             _shield.SetActive(true);
-            AudioSource.PlayClipAtPoint(_Attack4Sound[randomSound], transform.position);
+            _canAttack4 = Time.time + _cdAttack4;
+            AudioSource.PlayClipAtPoint(_Attack4Sound[0], transform.position);
             StartCoroutine(ShieldRoutine());
             
         }
@@ -127,8 +171,6 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         _shieldAnimator.SetBool("ShieldActif", false);
-        yield return new WaitForSeconds(1f);
-        _shield.SetActive(false);
     }
 
 
@@ -177,12 +219,15 @@ public class Player : MonoBehaviour
         }
         else
         {
+            int randomSound = Random.Range(0, _DamageSound.Length-1);
+            AudioSource.PlayClipAtPoint(_DamageSound[randomSound], transform.position);
             _animation.Hit();
             _health-=damage;
 
         }
         if (_health < 1)
         {
+            AudioSource.PlayClipAtPoint(_DamageSound[_DamageSound.Length], transform.position);
             _animation.Die();
             _spawnManager.OnPlayerDeath();
            

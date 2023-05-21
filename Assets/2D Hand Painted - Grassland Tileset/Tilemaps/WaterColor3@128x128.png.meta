@@ -3955,13 +3955,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      WaterColor3@128x128_112: 21300224
-      WaterColor3@128x128_4: 21300008
-      WaterColor3@128x128_35: 21300070
-      WaterColor3@128x128_107: 21300214
-      WaterColor3@128x128_133: 21300266
       WaterColor3@128x128_123: 21300246
-      WaterColor3@128x128_106: 21300212
+      WaterColor3@128x128_31: 21300062
+      WaterColor3@128x128_112: 21300224
+      WaterColor3@128x128_35: 21300070
+      WaterColor3@128x128_4: 21300008
+      WaterColor3@128x128_133: 21300266
       WaterColor3@128x128_145: 21300290
       WaterColor3@128x128_54: 21300108
       WaterColor3@128x128_74: 21300148
@@ -4103,18 +4102,19 @@ TextureImporter:
       WaterColor3@128x128_103: 21300206
       WaterColor3@128x128_7: 21300014
       WaterColor3@128x128_9: 21300018
-      WaterColor3@128x128_28: 21300056
-      WaterColor3@128x128_31: 21300062
-      WaterColor3@128x128_136: 21300272
       WaterColor3@128x128_33: 21300066
-      WaterColor3@128x128_25: 21300050
+      WaterColor3@128x128_106: 21300212
+      WaterColor3@128x128_136: 21300272
       WaterColor3@128x128_104: 21300208
+      WaterColor3@128x128_107: 21300214
+      WaterColor3@128x128_25: 21300050
+      WaterColor3@128x128_28: 21300056
       WaterColor3@128x128_139: 21300278
       WaterColor3@128x128_13: 21300026
-      WaterColor3@128x128_59: 21300118
       WaterColor3@128x128_63: 21300126
       WaterColor3@128x128_42: 21300084
       WaterColor3@128x128_36: 21300072
+      WaterColor3@128x128_59: 21300118
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

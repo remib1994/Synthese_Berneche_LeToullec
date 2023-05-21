@@ -3955,13 +3955,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Water@64x64_23: 21300046
+      Water@64x64_149: 21300298
       Water@64x64_3: 21300006
       Water@64x64_108: 21300216
       Water@64x64_143: 21300286
       Water@64x64_144: 21300288
       Water@64x64_80: 21300160
-      Water@64x64_149: 21300298
+      Water@64x64_158: 21300316
       Water@64x64_101: 21300202
       Water@64x64_151: 21300302
       Water@64x64_21: 21300042
@@ -3975,6 +3975,7 @@ TextureImporter:
       Water@64x64_36: 21300072
       Water@64x64_88: 21300176
       Water@64x64_82: 21300164
+      Water@64x64_23: 21300046
       Water@64x64_100: 21300200
       Water@64x64_138: 21300276
       Water@64x64_152: 21300304
@@ -3984,7 +3985,6 @@ TextureImporter:
       Water@64x64_44: 21300088
       Water@64x64_154: 21300308
       Water@64x64_107: 21300214
-      Water@64x64_158: 21300316
       Water@64x64_19: 21300038
       Water@64x64_139: 21300278
       Water@64x64_42: 21300084

@@ -4013,28 +4013,29 @@ TextureImporter:
       WaterColor2@64x64_28: 21300056
       WaterColor2@64x64_41: 21300082
       WaterColor2@64x64_56: 21300112
+      WaterColor2@64x64_156: 21300312
       WaterColor2@64x64_97: 21300194
       WaterColor2@64x64_80: 21300160
-      WaterColor2@64x64_116: 21300232
       WaterColor2@64x64_81: 21300162
       WaterColor2@64x64_71: 21300142
+      WaterColor2@64x64_116: 21300232
       WaterColor2@64x64_48: 21300096
-      WaterColor2@64x64_67: 21300134
-      WaterColor2@64x64_10: 21300020
+      WaterColor2@64x64_125: 21300250
+      WaterColor2@64x64_158: 21300316
       WaterColor2@64x64_73: 21300146
-      WaterColor2@64x64_98: 21300196
-      WaterColor2@64x64_124: 21300248
+      WaterColor2@64x64_10: 21300020
+      WaterColor2@64x64_67: 21300134
       WaterColor2@64x64_88: 21300176
       WaterColor2@64x64_27: 21300054
       WaterColor2@64x64_43: 21300086
-      WaterColor2@64x64_113: 21300226
       WaterColor2@64x64_45: 21300090
-      WaterColor2@64x64_74: 21300148
-      WaterColor2@64x64_5: 21300010
+      WaterColor2@64x64_124: 21300248
+      WaterColor2@64x64_113: 21300226
       WaterColor2@64x64_86: 21300172
-      WaterColor2@64x64_156: 21300312
-      WaterColor2@64x64_125: 21300250
+      WaterColor2@64x64_74: 21300148
+      WaterColor2@64x64_98: 21300196
       WaterColor2@64x64_134: 21300268
+      WaterColor2@64x64_5: 21300010
       WaterColor2@64x64_75: 21300150
       WaterColor2@64x64_141: 21300282
       WaterColor2@64x64_42: 21300084
@@ -4044,7 +4045,6 @@ TextureImporter:
       WaterColor2@64x64_144: 21300288
       WaterColor2@64x64_120: 21300240
       WaterColor2@64x64_115: 21300230
-      WaterColor2@64x64_158: 21300316
       WaterColor2@64x64_25: 21300050
       WaterColor2@64x64_19: 21300038
       WaterColor2@64x64_90: 21300180
