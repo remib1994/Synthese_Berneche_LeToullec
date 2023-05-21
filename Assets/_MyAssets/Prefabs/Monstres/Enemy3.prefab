@@ -272,6 +272,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy3Graph
       objectReference: {fileID: 0}
+    - target: {fileID: 3169851816954602598, guid: 1c32f2d56f9964f4abf368c826604490, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169851816954602598, guid: 1c32f2d56f9964f4abf368c826604490, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169851816954602598, guid: 1c32f2d56f9964f4abf368c826604490, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1588015321
+      objectReference: {fileID: 0}
     - target: {fileID: 4555880240531162968, guid: 1c32f2d56f9964f4abf368c826604490, type: 3}
       propertyPath: m_IsActive
       value: 0

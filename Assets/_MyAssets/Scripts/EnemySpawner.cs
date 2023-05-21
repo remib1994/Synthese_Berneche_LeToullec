@@ -17,6 +17,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
+        _uiManager = FindObjectOfType<UIManager>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         StartCoroutine(SpawnEnemy(spawnTime));
     }
@@ -36,13 +37,15 @@ public class EnemySpawner : MonoBehaviour
             }
             else if (_uiManager.getScore() < 2000)
             {
-                int randomEnemy = Random.Range(0, 1);
+                int randomEnemy = Random.Range(0, 2); // Générer un nombre entre 0 et 1 inclus
                 GameObject newEnemy = Instantiate(monstrePrefab[randomEnemy], spawnPosition, Quaternion.identity);
+                newEnemy.transform.parent = _container.transform;
             }
             else
             {
                 int randomEnemy = Random.Range(0, monstrePrefab.Length);
                 GameObject newEnemy = Instantiate(monstrePrefab[randomEnemy], spawnPosition, Quaternion.identity);
+                newEnemy.transform.parent = _container.transform;
             }
         }
     }

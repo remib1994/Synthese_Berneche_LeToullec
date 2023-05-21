@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour  {
     private void Update() {
 
         _txtTemps.text = "Temps : " + Time.time.ToString("f2");
+        UpdateScore();
 
         // Permet la gestion du panneau de pause (marche/arrêt)
         if ((Input.GetKeyDown(KeyCode.Escape) && !_pauseOn))
