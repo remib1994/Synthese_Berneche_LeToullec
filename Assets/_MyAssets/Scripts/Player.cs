@@ -36,6 +36,8 @@ public class Player : MonoBehaviour
     [SerializeField] protected AudioClip[] _Attack3Sound = default;
     [SerializeField] protected AudioClip[] _Attack4Sound = default;
     [SerializeField] protected AudioClip[] _DamageSound = default;
+
+    [SerializeField] protected float _volume = default;
     
     private bool _isInvincible = false;
     private EnemySpawner _enemySpawner;
@@ -209,14 +211,10 @@ public class Player : MonoBehaviour
             _animation.SetState(CharacterState.Idle);
         }
         else
-        
         {
             _animation.SetState(CharacterState.Run); 
         }
-        else
-        {
-            _animation.SetState(CharacterState.Run);
-        }
+
         Rigidbody2D rb2D = GetComponent<Rigidbody2D>();
         rb2D.velocity = direction * _Speed;
     }
@@ -237,7 +235,7 @@ public class Player : MonoBehaviour
         else
         {
             int randomSound = Random.Range(0, _DamageSound.Length-1);
-            AudioSource.PlayClipAtPoint(_DamageSound[randomSound], transform.position);
+            AudioSource.PlayClipAtPoint(_DamageSound[randomSound], transform.position, _volume);
             _animation.Hit();
             _health -= damage;
             _barreDeVie.SetHealth(_health);
@@ -250,7 +248,7 @@ public class Player : MonoBehaviour
         {
             AudioSource.PlayClipAtPoint(_DamageSound[_DamageSound.Length], transform.position);
             _animation.Die();
-            _spawnManager.OnPlayerDeath();
+            _enemySpawner.OnPlayerDeath();
 
             _animation.SetState(CharacterState.Death);
             _enemySpawner.OnPlayerDeath();

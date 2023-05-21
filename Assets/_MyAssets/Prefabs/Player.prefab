@@ -12326,13 +12326,16 @@ MonoBehaviour:
   _Attack1Prefab: {fileID: 0}
   _Attack2Prefab: {fileID: 0}
   _Attack3Prefab: {fileID: 0}
-  _Attack4Prefab: {fileID: 0}
-  _DeathPrefab: {fileID: 0}
-  _Attack1Sound: {fileID: 0}
-  _Attack2Sound: {fileID: 0}
-  _Attack3Sound: {fileID: 0}
-  _Attack4Sound: {fileID: 0}
-  _DeathSound: {fileID: 0}
+  _Attack1Sound:
+  - {fileID: 0}
+  _Attack2Sound:
+  - {fileID: 0}
+  _Attack3Sound:
+  - {fileID: 0}
+  _Attack4Sound:
+  - {fileID: 0}
+  _DamageSound: []
+  _volume: 0
 --- !u!1 &5570360330016832339
 GameObject:
   m_ObjectHideFlags: 0
