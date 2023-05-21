@@ -11,6 +11,8 @@ public class EnemySpawner : MonoBehaviour
 
     private Transform playerTransform; // Référence au transform du joueur
 
+    private UIManager _uiManager;
+
     private bool _StopSpawning = false;
 
     void Start()
@@ -21,15 +23,27 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnEnemy(float spawnTime)
     {
+        
         while (!_StopSpawning)
         {
             yield return new WaitForSeconds(spawnTime);
-
             Vector3 spawnPosition = GetValidSpawnPosition();
 
-            int randomEnemy = Random.Range(0, monstrePrefab.Length);
-            GameObject newEnemy = Instantiate(monstrePrefab[randomEnemy], spawnPosition, Quaternion.identity);
-            newEnemy.transform.parent = _container.transform;
+            if (_uiManager.getScore() < 1000)
+            {
+                GameObject newEnemy = Instantiate(monstrePrefab[0], spawnPosition, Quaternion.identity);
+                newEnemy.transform.parent = _container.transform;
+            }
+            else if (_uiManager.getScore() < 2000)
+            {
+                int randomEnemy = Random.Range(0, 1);
+                GameObject newEnemy = Instantiate(monstrePrefab[randomEnemy], spawnPosition, Quaternion.identity);
+            }
+            else
+            {
+                int randomEnemy = Random.Range(0, monstrePrefab.Length);
+                GameObject newEnemy = Instantiate(monstrePrefab[randomEnemy], spawnPosition, Quaternion.identity);
+            }
         }
     }
 
