@@ -18,6 +18,13 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected Character4D _character;
     [SerializeField] protected AnimationManager _animation;
 
+    [SerializeField] private Animator _animator;
+
+    private bool isAttacking = false;
+    private float attackCooldown = 1f; // Délai entre chaque attaque en secondes
+    private float currentCooldown = 0f;
+
+
     private void Update()
     {
         Vector2 direction = aiPath.desiredVelocity.normalized;
@@ -47,16 +54,41 @@ public class Enemy : MonoBehaviour
         {
             _animation.SetState(CharacterState.Idle);
         }
+
+        if (isAttacking)
+        {
+            currentCooldown -= Time.deltaTime;
+            if (currentCooldown <= 0f)
+            {
+                isAttacking = false;
+                currentCooldown = 0f;
+            }
+        }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
-            Debug.Log("Enemy collided with player"); // Vérifier si cette ligne s'affiche dans la console
             Player player = other.transform.GetComponent<Player>();
-            player.Damage(10);  // Appeler la méthode dégats du joueur
+            player.Damage(10);
+
+            Vector2 enemyToPlayer = other.transform.position - transform.position;
+            float distanceToPlayer = enemyToPlayer.magnitude;
+
+            if (distanceToPlayer < 2f && !isAttacking)
+            {
+                _animation.Attack();
+                isAttacking = true;
+                currentCooldown = attackCooldown;
+            }
         }
+    }
+
+    // Appelée depuis l'animation pour réinitialiser l'état de l'attaque
+    public void ResetAttackState()
+    {
+        isAttacking = false;
     }
 
     public void TakeDamage(int damage)

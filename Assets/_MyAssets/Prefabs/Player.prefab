@@ -12333,7 +12333,6 @@ MonoBehaviour:
   _Attack3Sound: {fileID: 0}
   _Attack4Sound: {fileID: 0}
   _DeathSound: {fileID: 0}
-  _spriteRenderer: {fileID: 0}
 --- !u!1 &5570360330016832339
 GameObject:
   m_ObjectHideFlags: 0

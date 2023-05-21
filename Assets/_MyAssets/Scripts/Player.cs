@@ -194,7 +194,7 @@ public class Player : MonoBehaviour
 
         if (_health < 1)
         {
-            _animation.Die();
+            _animation.SetState(CharacterState.Death);
             _enemySpawner.OnPlayerDeath();
         }
         else

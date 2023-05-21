@@ -1894,6 +1894,7 @@ MonoBehaviour:
   _points: 100
   _character: {fileID: 4300687307934671182}
   _animation: {fileID: 4300687307934671181}
+  _animator: {fileID: 0}
 --- !u!1 &4300687307941856758
 GameObject:
   m_ObjectHideFlags: 0
