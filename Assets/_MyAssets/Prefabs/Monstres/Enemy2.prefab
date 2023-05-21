@@ -192,7 +192,7 @@ MonoBehaviour:
   aiPath: {fileID: 7308704941854341602}
   _health: 10
   _barreDeVie: {fileID: 7230184557245651242}
-  _points: 50
+  _points: 100
   _damage: 1
   _character: {fileID: 6784963910019345875}
   _animation: {fileID: 6785478702809300485}

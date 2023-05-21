@@ -190,9 +190,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiPath: {fileID: 7308704941854341602}
-  _health: 20
+  _health: 30
   _barreDeVie: {fileID: 8065746731851438713}
-  _points: 100
+  _points: 150
   _damage: 3
   _character: {fileID: 7308704941774272297}
   _animation: {fileID: 7308704941774272298}

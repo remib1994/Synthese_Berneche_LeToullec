@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour
     private float attackCooldown = 1f; // Délai entre chaque attaque en secondes
     private float currentCooldown = 0f;
 
+    private bool isDead = false;
 
     private void Update()
     {
@@ -65,6 +66,12 @@ public class Enemy : MonoBehaviour
                 currentCooldown = 0f;
             }
         }
+
+        if (isDead)
+        {
+            // Si l'ennemi est mort, arrêtez de mettre à jour le script
+            return;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -94,6 +101,12 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (isDead)
+        {
+            // Si l'ennemi est déjà mort, ne faites rien
+            return;
+        }
+
         if (other.tag == "Slash")
         {
             if (_health > 0)
@@ -108,7 +121,7 @@ public class Enemy : MonoBehaviour
                         _uiManager.AjouterScore(_points);
                     }
 
-                    Destroy(this.gameObject);
+                    StartCoroutine(DieSequence());
                 }
             }
         }
@@ -126,9 +139,24 @@ public class Enemy : MonoBehaviour
                         _uiManager.AjouterScore(_points);
                     }
 
-                    Destroy(this.gameObject);
+                    StartCoroutine(DieSequence());
                 }
             }
         }
+    }
+    private IEnumerator DieSequence()
+    {
+        isDead = true;
+
+        GetComponent<AIPath>().enabled = false;
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<CapsuleCollider2D>().enabled = false;
+        this.enabled = false;
+        _animation.Die();
+
+        yield return new WaitForSeconds(1.5f);
+
+        Destroy(gameObject);
     }
 }

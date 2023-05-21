@@ -594,6 +594,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ed0764f2724fe2c44a8e5d279684a631, type: 3}
   - {fileID: 8300000, guid: 7d8a19e2010ec9446953de5cfbcdddd7, type: 3}
   _volume: 0.05
+  flashMort: {fileID: 0}
 --- !u!1 &1075059424682908
 GameObject:
   m_ObjectHideFlags: 0

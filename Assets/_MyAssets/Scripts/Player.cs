@@ -8,6 +8,7 @@ using UnityEngine;
 using Assets.HeroEditor4D.Common.Scripts.CharacterScripts;
 using Assets.HeroEditor4D.Common.Scripts.Enums;
 using UnityEngine.Serialization;
+using Pathfinding;
 
 public class Player : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class Player : MonoBehaviour
     [SerializeField] protected float _volume = default;
     
     private bool _isInvincible = false;
+
     private EnemySpawner _enemySpawner;
     private float _canAttack1 = -1f;
     private float _canAttack2 = -1f;
@@ -55,10 +57,8 @@ public class Player : MonoBehaviour
     private GameObject _shield;
     private ParticleSystem _buffParticuleFX;
     private Animator _shieldAnimator;
-    
 
-
-
+    [SerializeField] private CanvasGroup flashMort;
 
     void Start()
     {
@@ -239,18 +239,18 @@ public class Player : MonoBehaviour
             _animation.Hit();
             _health -= damage;
             _barreDeVie.SetHealth(_health);
-
-            /* UIManager _uiManager = FindObjectOfType<UIManager>();
-            _uiManager.ChangeLivesDisplayImage(_Health); */
         }
 
         if (_health < 1)
         {
-            AudioSource.PlayClipAtPoint(_DamageSound[_DamageSound.Length], transform.position, _volume);
-            _animation.Die();
-            _enemySpawner.OnPlayerDeath();
+            StartCoroutine(FlashRoutine(0.5f));
 
-            _animation.SetState(CharacterState.Death);
+            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            GetComponent<Collider2D>().enabled = false;
+            GetComponent<CapsuleCollider2D>().enabled = false;
+            this.enabled = false;
+            _animation.Die();
+
             _enemySpawner.OnPlayerDeath();
         }
         else
@@ -266,5 +266,36 @@ public class Player : MonoBehaviour
         _isInvincible = false;
     }
 
+    private IEnumerator FlashRoutine(float duration)
+    {
+        float timer = 0f;
+        float startAlpha = flashMort.alpha;
+        float targetAlpha = 1f;
+
+        // Animation de l'augmentation de la transparence (de 0 à 1)
+        while (timer < duration / 2f)
+        {
+            timer += Time.deltaTime;
+            float alpha = Mathf.Lerp(startAlpha, targetAlpha, timer / (duration / 2f));
+            flashMort.alpha = alpha;
+            yield return null;
+        }
+
+        // Attendre pendant la seconde moitié de la durée spécifiée
+        yield return new WaitForSeconds(duration / 2f);
+
+        timer = 0f;
+        startAlpha = flashMort.alpha;
+        targetAlpha = 0f;
+
+        // Animation de la diminution de la transparence (de 1 à 0)
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            float alpha = Mathf.Lerp(startAlpha, targetAlpha, timer / duration);
+            flashMort.alpha = alpha;
+            yield return null;
+        }
+    }
 
 }

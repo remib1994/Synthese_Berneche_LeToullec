@@ -14,12 +14,13 @@ public class EnemySpawner : MonoBehaviour
     private UIManager _uiManager;
 
     private bool _StopSpawning = false;
+    private Coroutine enemySpawnCoroutine;
 
     void Start()
     {
         _uiManager = FindObjectOfType<UIManager>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        StartCoroutine(SpawnEnemy(spawnTime));
+        enemySpawnCoroutine = StartCoroutine(SpawnEnemy(spawnTime));
     }
 
     private IEnumerator SpawnEnemy(float spawnTime)
@@ -30,19 +31,21 @@ public class EnemySpawner : MonoBehaviour
             yield return new WaitForSeconds(spawnTime);
             Vector3 spawnPosition = GetValidSpawnPosition();
 
-            if (_uiManager.getScore() < 1000)
+            if (_uiManager.getScore() < 2000)
             {
                 GameObject newEnemy = Instantiate(monstrePrefab[0], spawnPosition, Quaternion.identity);
                 newEnemy.transform.parent = _container.transform;
             }
-            else if (_uiManager.getScore() < 2000)
+            else if (_uiManager.getScore() < 4000)
             {
+                spawnTime = 2.5f;
                 int randomEnemy = Random.Range(0, 2); // Générer un nombre entre 0 et 1 inclus
                 GameObject newEnemy = Instantiate(monstrePrefab[randomEnemy], spawnPosition, Quaternion.identity);
                 newEnemy.transform.parent = _container.transform;
             }
             else
             {
+                spawnTime = 1.5f;
                 int randomEnemy = Random.Range(0, monstrePrefab.Length);
                 GameObject newEnemy = Instantiate(monstrePrefab[randomEnemy], spawnPosition, Quaternion.identity);
                 newEnemy.transform.parent = _container.transform;
@@ -71,6 +74,11 @@ public class EnemySpawner : MonoBehaviour
     public void OnPlayerDeath()
     {
         _StopSpawning = true;
-        Destroy(_container);
+        StopCoroutine(enemySpawnCoroutine);
+
+        foreach (Transform child in _container.transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 }
