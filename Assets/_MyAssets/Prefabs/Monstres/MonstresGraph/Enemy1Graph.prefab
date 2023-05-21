@@ -1892,6 +1892,7 @@ MonoBehaviour:
   _health: 0
   _barreDeVie: {fileID: 0}
   _points: 100
+  _damage: 1
   _character: {fileID: 4300687307934671182}
   _animation: {fileID: 4300687307934671181}
   _animator: {fileID: 0}

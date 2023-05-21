@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private GameObject _container = default;
-    [SerializeField] private GameObject monstrePrefab;
+    [SerializeField] private GameObject[] monstrePrefab;
     [SerializeField] private float spawnTime = 3.5f; // Temps entre chaque spawn
     [SerializeField] private float spawnRadius = 20f; // Le rayon de la zone de spawn autour du joueur
 
@@ -16,10 +16,10 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        StartCoroutine(SpawnEnemy(spawnTime, monstrePrefab));
+        StartCoroutine(SpawnEnemy(spawnTime));
     }
 
-    private IEnumerator SpawnEnemy(float spawnTime, GameObject enemy)
+    private IEnumerator SpawnEnemy(float spawnTime)
     {
         while (!_StopSpawning)
         {
@@ -27,7 +27,8 @@ public class EnemySpawner : MonoBehaviour
 
             Vector3 spawnPosition = GetValidSpawnPosition();
 
-            GameObject newEnemy = Instantiate(enemy, spawnPosition, Quaternion.identity);
+            int randomEnemy = Random.Range(0, monstrePrefab.Length);
+            GameObject newEnemy = Instantiate(monstrePrefab[randomEnemy], spawnPosition, Quaternion.identity);
             newEnemy.transform.parent = _container.transform;
         }
     }

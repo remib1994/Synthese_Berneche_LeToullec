@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected int _health;
     [SerializeField] protected BarreDeVie _barreDeVie;
     [SerializeField] protected int _points = 100;
+    [SerializeField] protected int _damage = 1;
 
     private UIManager _uiManager;
 
@@ -71,7 +72,7 @@ public class Enemy : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Player player = other.transform.GetComponent<Player>();
-            player.Damage(10);
+            player.Damage(_damage);
 
             Vector2 enemyToPlayer = other.transform.position - transform.position;
             float distanceToPlayer = enemyToPlayer.magnitude;
@@ -91,7 +92,7 @@ public class Enemy : MonoBehaviour
         isAttacking = false;
     }
 
-    public void TakeDamage(int damage)
+    public void Damage(int damage)
     {
         _health -= damage;
         //_barreDeVie.SetVie(_health);

@@ -206,7 +206,7 @@ public class Player : MonoBehaviour
     IEnumerator InvincibilityRoutine()
     {
         _isInvincible = true;
-        yield return new WaitForSeconds(1.5f); // Délai d'invincibilité d'une seconde
+        yield return new WaitForSeconds(0.5f); // Délai d'invincibilité d'une seconde
         _isInvincible = false;
     }
 
