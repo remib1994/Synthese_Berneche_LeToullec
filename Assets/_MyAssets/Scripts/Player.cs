@@ -188,6 +188,9 @@ public class Player : MonoBehaviour
         float VertInput = Input.GetAxis("Vertical");
         Vector3 direction = new Vector3(horizInput, VertInput, 0f);
 
+        Rigidbody2D rb2D = GetComponent<Rigidbody2D>();
+        rb2D.velocity = direction * _Speed;
+
         //Gestion des animations
         if (horizInput > 0)
         {
@@ -214,9 +217,6 @@ public class Player : MonoBehaviour
         {
             _animation.SetState(CharacterState.Run); 
         }
-
-        Rigidbody2D rb2D = GetComponent<Rigidbody2D>();
-        rb2D.velocity = direction * _Speed;
     }
 
     //Methode public
