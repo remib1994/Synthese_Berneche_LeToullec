@@ -113,7 +113,7 @@ public class Player : MonoBehaviour
                 Instantiate(_Attack1Prefab, transform.position+new Vector3(1f,0,0), Quaternion.Euler(0,0,90));
             }
 
-            AudioSource.PlayClipAtPoint(_Attack1Sound[randomSound], transform.position);
+            AudioSource.PlayClipAtPoint(_Attack1Sound[randomSound], transform.position, _volume);
         }
     }
 
@@ -141,7 +141,7 @@ public class Player : MonoBehaviour
                 Instantiate(_Attack2Prefab, transform.position+new Vector3(3f,.5f,0), Quaternion.Euler(0,0,270+45));
             }
             
-            AudioSource.PlayClipAtPoint(_Attack2Sound[randomSound], transform.position);
+            AudioSource.PlayClipAtPoint(_Attack2Sound[randomSound], transform.position, _volume);
         }
     }
     protected void Attack3()
@@ -152,7 +152,7 @@ public class Player : MonoBehaviour
             //int randomSound = Random.Range(0, _Attack2Sound.Length);
             _canAttack3 = Time.time + _cdAttack3;
             _AttackRate = _initialAttackRate / 2;
-            AudioSource.PlayClipAtPoint(_Attack3Sound[0], transform.position);
+            AudioSource.PlayClipAtPoint(_Attack3Sound[0], transform.position, _volume);
             StartCoroutine(BuffRoutine());
         }
     }
@@ -170,7 +170,7 @@ public class Player : MonoBehaviour
             _shieldAnimator.SetBool("ShieldActif", true);
             _shield.SetActive(true);
             _canAttack4 = Time.time + _cdAttack4;
-            AudioSource.PlayClipAtPoint(_Attack4Sound[0], transform.position);
+            AudioSource.PlayClipAtPoint(_Attack4Sound[0], transform.position, _volume);
             StartCoroutine(ShieldRoutine());
             
         }
@@ -246,7 +246,7 @@ public class Player : MonoBehaviour
 
         if (_health < 1)
         {
-            AudioSource.PlayClipAtPoint(_DamageSound[_DamageSound.Length], transform.position);
+            AudioSource.PlayClipAtPoint(_DamageSound[_DamageSound.Length], transform.position, _volume);
             _animation.Die();
             _enemySpawner.OnPlayerDeath();
 
