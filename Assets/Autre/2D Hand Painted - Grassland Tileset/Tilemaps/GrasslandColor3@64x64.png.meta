@@ -6223,13 +6223,11 @@ TextureImporter:
       GrasslandColor3@64x64_63: 21300126
       GrasslandColor3@64x64_40: 21300080
       GrasslandColor3@64x64_58: 21300116
-      GrasslandColor3@64x64_127: 21300254
-      GrasslandColor3@64x64_125: 21300250
-      GrasslandColor3@64x64_180: 21300360
       GrasslandColor3@64x64_200: 21300400
-      GrasslandColor3@64x64_26: 21300052
+      GrasslandColor3@64x64_125: 21300250
       GrasslandColor3@64x64_216: 21300432
-      GrasslandColor3@64x64_226: 21300452
+      GrasslandColor3@64x64_26: 21300052
+      GrasslandColor3@64x64_95: 21300190
       GrasslandColor3@64x64_68: 21300136
       GrasslandColor3@64x64_150: 21300300
       GrasslandColor3@64x64_11: 21300022
@@ -6380,14 +6378,14 @@ TextureImporter:
       GrasslandColor3@64x64_191: 21300382
       GrasslandColor3@64x64_107: 21300214
       GrasslandColor3@64x64_7: 21300014
-      GrasslandColor3@64x64_30: 21300060
       GrasslandColor3@64x64_104: 21300208
-      GrasslandColor3@64x64_65: 21300130
+      GrasslandColor3@64x64_30: 21300060
       GrasslandColor3@64x64_133: 21300266
       GrasslandColor3@64x64_220: 21300440
-      GrasslandColor3@64x64_145: 21300290
+      GrasslandColor3@64x64_65: 21300130
       GrasslandColor3@64x64_248: 21300496
       GrasslandColor3@64x64_12: 21300024
+      GrasslandColor3@64x64_145: 21300290
       GrasslandColor3@64x64_206: 21300412
       GrasslandColor3@64x64_102: 21300204
       GrasslandColor3@64x64_123: 21300246
@@ -6454,16 +6452,18 @@ TextureImporter:
       GrasslandColor3@64x64_45: 21300090
       GrasslandColor3@64x64_14: 21300028
       GrasslandColor3@64x64_88: 21300176
-      GrasslandColor3@64x64_5: 21300010
-      GrasslandColor3@64x64_52: 21300104
+      GrasslandColor3@64x64_127: 21300254
+      GrasslandColor3@64x64_226: 21300452
       GrasslandColor3@64x64_165: 21300330
+      GrasslandColor3@64x64_5: 21300010
       GrasslandColor3@64x64_57: 21300114
       GrasslandColor3@64x64_97: 21300194
+      GrasslandColor3@64x64_52: 21300104
       GrasslandColor3@64x64_253: 21300506
-      GrasslandColor3@64x64_95: 21300190
+      GrasslandColor3@64x64_81: 21300162
+      GrasslandColor3@64x64_180: 21300360
       GrasslandColor3@64x64_201: 21300402
       GrasslandColor3@64x64_138: 21300276
-      GrasslandColor3@64x64_81: 21300162
       GrasslandColor3@64x64_105: 21300210
   spritePackingTag: 
   pSDRemoveMatte: 0

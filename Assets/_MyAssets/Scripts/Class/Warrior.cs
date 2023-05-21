@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Warrior : Player
 {
 
@@ -17,5 +18,4 @@ public class Warrior : Player
         Attack3();
         Attack4();
     }
-
 }

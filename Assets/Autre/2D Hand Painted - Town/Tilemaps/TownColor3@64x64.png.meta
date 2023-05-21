@@ -6188,6 +6188,7 @@ TextureImporter:
       TownColor3@64x64_186: 21300372
       TownColor3@64x64_87: 21300174
       TownColor3@64x64_75: 21300150
+      TownColor3@64x64_240: 21300480
       TownColor3@64x64_9: 21300018
       TownColor3@64x64_162: 21300324
       TownColor3@64x64_146: 21300292
@@ -6196,11 +6197,10 @@ TextureImporter:
       TownColor3@64x64_222: 21300444
       TownColor3@64x64_201: 21300402
       TownColor3@64x64_85: 21300170
-      TownColor3@64x64_29: 21300058
       TownColor3@64x64_19: 21300038
-      TownColor3@64x64_156: 21300312
       TownColor3@64x64_116: 21300232
-      TownColor3@64x64_240: 21300480
+      TownColor3@64x64_156: 21300312
+      TownColor3@64x64_29: 21300058
       TownColor3@64x64_49: 21300098
       TownColor3@64x64_212: 21300424
       TownColor3@64x64_106: 21300212
@@ -6307,8 +6307,8 @@ TextureImporter:
       TownColor3@64x64_86: 21300172
       TownColor3@64x64_202: 21300404
       TownColor3@64x64_148: 21300296
-      TownColor3@64x64_234: 21300468
       TownColor3@64x64_235: 21300470
+      TownColor3@64x64_234: 21300468
       TownColor3@64x64_207: 21300414
       TownColor3@64x64_20: 21300040
       TownColor3@64x64_96: 21300192

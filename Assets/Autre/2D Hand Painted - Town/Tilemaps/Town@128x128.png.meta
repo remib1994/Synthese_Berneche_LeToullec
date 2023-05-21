@@ -6165,7 +6165,7 @@ TextureImporter:
     nameFileIdTable:
       Town@128x128_171: 21300342
       Town@128x128_224: 21300448
-      Town@128x128_183: 21300366
+      Town@128x128_123: 21300246
       Town@128x128_225: 21300450
       Town@128x128_108: 21300216
       Town@128x128_45: 21300090
@@ -6413,8 +6413,8 @@ TextureImporter:
       Town@128x128_249: 21300498
       Town@128x128_185: 21300370
       Town@128x128_221: 21300442
-      Town@128x128_123: 21300246
       Town@128x128_175: 21300350
+      Town@128x128_183: 21300366
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

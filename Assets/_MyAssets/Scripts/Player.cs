@@ -2,57 +2,57 @@ using Assets.HeroEditor4D.Common.Scripts.CharacterScripts;
 using Assets.HeroEditor4D.Common.Scripts.Enums;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
+using Assets.HeroEditor4D.Common.Scripts.CharacterScripts;
+using Assets.HeroEditor4D.Common.Scripts.Enums;
+using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
+    public int Strength => _strength;
     // Start is called before the first frame update
 
     //Stats
     [SerializeField] protected Character4D _character;
     [SerializeField] protected AnimationManager _animation;
-    [SerializeField] protected int _strength = 6;
+    [SerializeField] protected int _strength = 6;    
     [SerializeField] protected int _Dexterity = 6;
     [SerializeField] protected int _Intelligence = 6;
-
-
+    
+    
     [SerializeField] protected float _Speed = 10;
     [SerializeField] protected int _health;
+    
     [SerializeField] protected BarreDeVie _barreDeVie;
-
     [SerializeField] protected float _AttackRate = 1.0f;
 
     [SerializeField] protected GameObject _Attack1Prefab = default;
     [SerializeField] protected GameObject _Attack2Prefab = default;
     [SerializeField] protected GameObject _Attack3Prefab = default;
-    [SerializeField] protected GameObject _Attack4Prefab = default;
-    [SerializeField] protected GameObject _DeathPrefab = default;
-    [SerializeField] protected AudioClip _Attack1Sound = default;
-    [SerializeField] protected AudioClip _Attack2Sound = default;
-    [SerializeField] protected AudioClip _Attack3Sound = default;
-    [SerializeField] protected AudioClip _Attack4Sound = default;
-    [SerializeField] protected AudioClip _DeathSound = default;
-
+    [SerializeField] protected AudioClip[] _Attack1Sound = default;
+    [SerializeField] protected AudioClip[] _Attack2Sound = default;
+    [SerializeField] protected AudioClip[] _Attack3Sound = default;
+    [SerializeField] protected AudioClip[] _Attack4Sound = default;
+    [SerializeField] protected AudioClip[] _DamageSound = default;
+    
     private SpawnManager _spawnManager;
-
     private float _canAttack1 = -1f;
     private float _canAttack2 = -1f;
     private float _canAttack3 = -1f;
     private float _canAttack4 = -1f;
 
-    private float _CDAttack1 = 5f;
-    private float _CDAttack2 = 10f;
-    private float _CDAttack3 = 15f;
-    private float _CDAttack4 = 20f;
-
+    private float _cdAttack3 = 15f;
+    private float _cdAttack4 = 20f;
     private float _initialAttackRate;
     private int _healthMax;
     private float _speedMax;
 
-    private bool _isAttackSpeedBuffed = false;
     private GameObject _shield;
+    private ParticleSystem _buffParticuleFX;
     private Animator _shieldAnimator;
+    
 
 
 
@@ -60,16 +60,20 @@ public class Player : MonoBehaviour
     void Start()
     {
         _healthMax = _strength * 10;
-        _health = _strength * 10;
+        _health= _strength * 10;
         _character.SetDirection(Vector2.down);
         _animation.SetState(CharacterState.Idle);
         _spawnManager = GameObject.FindObjectOfType<SpawnManager>();
-        _initialAttackRate = _AttackRate;
-
+        _initialAttackRate= _AttackRate;
+        
         _shield = transform.GetChild(0).gameObject;
+        _buffParticuleFX = transform.GetChild(1).gameObject.GetComponent<ParticleSystem>();
         _shieldAnimator = _shield.GetComponent<Animator>();
-        _barreDeVie.SetMaxHealth(_healthMax);
+        _buffParticuleFX.Stop();
+        _shield.SetActive(false);
 
+
+        _barreDeVie.SetMaxHealth(_healthMax);
     }
 
     // Update is called once per frame
@@ -80,59 +84,93 @@ public class Player : MonoBehaviour
         Attack2();
         Attack3();
         Attack4();
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TakeDamage(10);
-        }
     }
-    // CODE POUR FAIRE PERDRE DE LA VIE
-    void TakeDamage(int damage)
-    {
-        _health -= damage;
-
-        _barreDeVie.SetHealth(_health);
-    }
-    // CODE POUR FAIRE PERDRE DE LA VIE
+    
 
     protected void Attack1()
     {
-        if (Input.GetButton("Attack1") && Time.time > _canAttack1)
+        if(Input.GetButtonDown("Attack1") && Time.time > _canAttack1)
         {
+            int randomSound = Random.Range(0, _Attack1Sound.Length);
             _animation.Attack();
             _canAttack1 = Time.time + _AttackRate;
-            Instantiate(_Attack1Prefab, transform.position, Quaternion.identity);
-            AudioSource.PlayClipAtPoint(_Attack1Sound, transform.position);
+            if(_character.Front.isActiveAndEnabled)
+            {
+                 Instantiate(_Attack1Prefab, transform.position+new Vector3(0,-.5f,0), Quaternion.Euler(0,0,0)); 
+            }
+            else if(_character.Back.isActiveAndEnabled)
+            {
+                Instantiate(_Attack1Prefab, transform.position+new Vector3(0,1f,0), Quaternion.Euler(0,0,180));
+            }
+            else if(_character.Left.isActiveAndEnabled)
+            {
+                Instantiate(_Attack1Prefab, transform.position+new Vector3(-1,0,0), Quaternion.Euler(0,0,270));
+            }
+            else if(_character.Right.isActiveAndEnabled)
+            {
+                Instantiate(_Attack1Prefab, transform.position+new Vector3(1f,0,0), Quaternion.Euler(0,0,90));
+            }
+
+            AudioSource.PlayClipAtPoint(_Attack1Sound[randomSound], transform.position);
         }
     }
 
     protected void Attack2()
     {
-        if (Input.GetButton("Attack2") && Time.time > _canAttack2)
+        if(Input.GetButtonDown("Attack2") && Time.time > _canAttack2)
         {
+            int randomSound = Random.Range(0, _Attack2Sound.Length);
             _animation.Jab();
             _canAttack2 = Time.time + _AttackRate;
-            Instantiate(_Attack1Prefab, transform.position, Quaternion.identity);
-            AudioSource.PlayClipAtPoint(_Attack1Sound, transform.position);
+            if(_character.Front.isActiveAndEnabled)
+            {
+                Instantiate(_Attack2Prefab, transform.position+new Vector3(0f,-2f,0), Quaternion.Euler(0,0,180+45)); 
+            }
+            else if(_character.Back.isActiveAndEnabled)
+            {
+                Instantiate(_Attack2Prefab, transform.position+new Vector3(0f,2.5f,0), Quaternion.Euler(0,0,45));
+            }
+            else if(_character.Left.isActiveAndEnabled)
+            {
+                Instantiate(_Attack2Prefab, transform.position+new Vector3(-3,0,0), Quaternion.Euler(0,0,90+45));
+            }
+            else if(_character.Right.isActiveAndEnabled)
+            {
+                Instantiate(_Attack2Prefab, transform.position+new Vector3(3f,.5f,0), Quaternion.Euler(0,0,270+45));
+            }
+            
+            AudioSource.PlayClipAtPoint(_Attack2Sound[randomSound], transform.position);
         }
     }
     protected void Attack3()
     {
-        if (Input.GetButton("Attack3") && Time.time > _canAttack3)
+        if(Input.GetButtonDown("Attack3") && Time.time > _canAttack3)
         {
-            _canAttack3 = Time.time + _AttackRate;
-            Instantiate(_Attack1Prefab, transform.position, Quaternion.identity);
-            AudioSource.PlayClipAtPoint(_Attack1Sound, transform.position);
+            _buffParticuleFX.Play();
+            //int randomSound = Random.Range(0, _Attack2Sound.Length);
+            _canAttack3 = Time.time + _cdAttack3;
+            _AttackRate = _initialAttackRate / 2;
+            AudioSource.PlayClipAtPoint(_Attack3Sound[0], transform.position);
+            StartCoroutine(BuffRoutine());
         }
+    }
+    IEnumerator BuffRoutine()
+    {
+        yield return new WaitForSeconds(5f);
+        _buffParticuleFX.Stop();
+        _AttackRate = _initialAttackRate;
     }
     protected void Attack4()
     {
-        if (Input.GetButton("Attack4") && Time.time > _canAttack4)
+        if(Input.GetButtonDown("Attack4") && Time.time > _canAttack4)
         {
+            //int randomSound = Random.Range(0, _Attack2Sound.Length);
+            _shieldAnimator.SetBool("ShieldActif", true);
             _shield.SetActive(true);
-            //AudioSource.PlayClipAtPoint(_Attack1Sound, transform.position);
+            _canAttack4 = Time.time + _cdAttack4;
+            AudioSource.PlayClipAtPoint(_Attack4Sound[0], transform.position);
             StartCoroutine(ShieldRoutine());
-
+            
         }
     }
 
@@ -140,7 +178,6 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         _shieldAnimator.SetBool("ShieldActif", false);
-        _shield.SetActive(false);
     }
 
 
@@ -168,37 +205,42 @@ public class Player : MonoBehaviour
         {
             _character.SetDirection(Vector2.down);
         }
-
-        Rigidbody2D rb2D = GetComponent<Rigidbody2D>();
-        rb2D.velocity = direction * _Speed;
-
+        
         if (horizInput == 0 && VertInput == 0)
         {
             _animation.SetState(CharacterState.Idle);
         }
         else
+        
+        {
+            _animation.SetState(CharacterState.Run); 
+        }
+        else
         {
             _animation.SetState(CharacterState.Run);
         }
+        Rigidbody2D rb2D = GetComponent<Rigidbody2D>();
+        rb2D.velocity = direction * _Speed;
     }
 
     //Methode public
     public void Damage(int damage)
     {
-        if (_shield.activeSelf == true)
-        {
+        if(_shield.activeSelf==true){
             _shieldAnimator.SetBool("ShieldActif", false);
             _shield.SetActive(false);
         }
         else
         {
+            int randomSound = Random.Range(0, _DamageSound.Length-1);
+            AudioSource.PlayClipAtPoint(_DamageSound[randomSound], transform.position);
             _animation.Hit();
-            _health -= damage;
-            /* UIManager _uiManager = FindObjectOfType<UIManager>();
-            _uiManager.ChangeLivesDisplayImage(_Health); */
+            _health-=damage;
+
         }
         if (_health < 1)
         {
+            AudioSource.PlayClipAtPoint(_DamageSound[_DamageSound.Length], transform.position);
             _animation.Die();
             _spawnManager.OnPlayerDeath();
 
