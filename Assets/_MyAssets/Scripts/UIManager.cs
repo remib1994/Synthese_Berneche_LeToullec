@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Threading;
 
 public class UIManager : MonoBehaviour  {
     
     [SerializeField] private int _score =  default;
     [SerializeField] private TextMeshProUGUI _txtScore = default;
+    [SerializeField] private TextMeshProUGUI _txtTempsPartie = default;
     [SerializeField] private TextMeshProUGUI _txtTemps = default;
     [SerializeField] private TextMeshProUGUI _txtGameOver = default;
     [SerializeField] private TextMeshProUGUI _txtRestart = default;
@@ -22,10 +24,8 @@ public class UIManager : MonoBehaviour  {
     // Start is called before the first frame update
 
     private void Start() {
-        _score = 0;
+        _score = 0;       
         Time.timeScale = 1;
-        _txtGameOver.gameObject.SetActive(false);
-        ChangeLivesDisplayImage(3);
         UpdateScore();
     }
 
@@ -35,6 +35,13 @@ public class UIManager : MonoBehaviour  {
         _txtTemps.text = "Temps : " + Time.timeSinceLevelLoad.ToString("f2");
         UpdateScore();
 
+        //Récupère l'index de la scène en cours
+        int noScene = SceneManager.GetActiveScene().buildIndex;
+        if(noScene == (SceneManager.sceneCountInBuildSettings - 2))
+        {
+            _txtTempsPartie.text = "Temps : " + Time.timeSinceLevelLoad.ToString("f2"); 
+        }
+
         if (_pauseOn && Input.GetKeyDown(KeyCode.Q))
         {
             SceneManager.LoadScene(0);
@@ -42,7 +49,7 @@ public class UIManager : MonoBehaviour  {
         if (_pauseOn && Input.GetKeyDown(KeyCode.S))
         {
             ToggleSound();
-        }
+        }            
 
         // Permet la gestion du panneau de pause (marche/arrêt)
         if ((Input.GetKeyDown(KeyCode.Escape) && !_pauseOn))
@@ -58,25 +65,12 @@ public class UIManager : MonoBehaviour  {
             _pauseOn = false;
         }
 
-        if (_txtRestart.gameObject.activeSelf && Input.GetKeyDown(KeyCode.R)) {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-        else if (_txtRestart.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Escape)) {
-            SceneManager.LoadScene(0);
-        }
-
-        if((Input.GetKeyDown(KeyCode.Escape) && !_txtRestart.gameObject.activeSelf) && !_pauseOn)
-        {
-            _pausePanel.SetActive(true);
-            Time.timeScale = 0;
-            _pauseOn = true;
-        }
-        else if ((Input.GetKeyDown(KeyCode.Escape) && !_txtRestart.gameObject.activeSelf) && _pauseOn)
-        {
-            _pausePanel.SetActive(false);
-            Time.timeScale = 1;
-            _pauseOn = false;
-        }
+        //if (_txtRestart.gameObject.activeSelf && Input.GetKeyDown(KeyCode.R)) {
+        //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //}
+        //else if (_txtRestart.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Escape)) {
+        //    SceneManager.LoadScene(0);
+        //}
     }
 
     public int getScore()
@@ -91,16 +85,6 @@ public class UIManager : MonoBehaviour  {
     private void UpdateScore()
     {
         _txtScore.text = "Score : " + _score.ToString();
-    }
-
-    public void ChangeLivesDisplayImage(int noImage) {
-        if (noImage < 0) {
-            noImage = 0;
-        }
-        _livesDisplayImage.sprite = _liveSprites[noImage];
-        if (noImage == 0) {
-            GameOverSequence();
-        }
     }
 
     private void GameOverSequence() {
