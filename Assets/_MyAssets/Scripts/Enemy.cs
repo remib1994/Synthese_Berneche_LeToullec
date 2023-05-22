@@ -147,7 +147,7 @@ public class Enemy : MonoBehaviour
     }
     private IEnumerator DieSequence()
     {
-        Instantiate(_sang, transform.position, Quaternion.identity);
+        GameObject instantiateSang = Instantiate(_sang, transform.position, Quaternion.identity);
         isDead = true;
         
         GetComponent<AIPath>().enabled = false;
@@ -159,6 +159,7 @@ public class Enemy : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
 
+        Destroy(instantiateSang);
         Destroy(gameObject);
     }
 }
