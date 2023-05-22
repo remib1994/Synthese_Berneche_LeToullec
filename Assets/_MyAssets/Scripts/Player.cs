@@ -222,7 +222,7 @@ public class Player : MonoBehaviour
     //Methode public
     public void Damage(int damage)
     {
-        if (_isInvincible) // Si le joueur est invincible, ne subissez pas de d�g�ts
+        if (_isInvincible)
         {
             return;
         }

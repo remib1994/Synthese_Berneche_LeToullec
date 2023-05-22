@@ -12336,6 +12336,7 @@ MonoBehaviour:
   - {fileID: 0}
   _DamageSound: []
   _volume: 0
+  flashMort: {fileID: 0}
 --- !u!1 &5570360330016832339
 GameObject:
   m_ObjectHideFlags: 0
