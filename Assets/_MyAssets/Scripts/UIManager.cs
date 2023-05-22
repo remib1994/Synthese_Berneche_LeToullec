@@ -35,12 +35,12 @@ public class UIManager : MonoBehaviour  {
         _txtTemps.text = "Temps : " + Time.timeSinceLevelLoad.ToString("f2");
         UpdateScore();
 
-        //Récupère l'index de la scène en cours
-        int noScene = SceneManager.GetActiveScene().buildIndex;
-        if(noScene == (SceneManager.sceneCountInBuildSettings - 2))
-        {
-            _txtTempsPartie.text = "Temps : " + Time.timeSinceLevelLoad.ToString("f2"); 
-        }
+        ////Récupère l'index de la scène en cours
+        //int noScene = SceneManager.GetActiveScene().buildIndex;
+        //if (noScene == (SceneManager.sceneCountInBuildSettings - 2))
+        //{
+        //    _txtTempsPartie.text = "Temps : " + Time.timeSinceLevelLoad.ToString("f2");
+        //}
 
         if (_pauseOn && Input.GetKeyDown(KeyCode.Q))
         {

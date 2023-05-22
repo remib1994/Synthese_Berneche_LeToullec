@@ -24,7 +24,7 @@ public class HighScoreTable : MonoBehaviour
     [SerializeField] private GameObject _txtErreur = default;
     [SerializeField] private GameObject _txtErreurPass = default;
     [SerializeField] private GameObject _txtReussi = default;
-    [SerializeField] private GameObject _imageVaisseau = default;
+    //[SerializeField] private GameObject _imageVaisseau = default;
     [SerializeField] private GameObject _lettreDepart = default;
     [SerializeField] private GameObject _lettreDepart2 = default;
 
@@ -35,7 +35,7 @@ public class HighScoreTable : MonoBehaviour
 
     private void Awake()
     {
-        //PlayerPrefs.DeleteKey("highScoreTable"); // Sert si l'on désire effacer les scores
+        PlayerPrefs.DeleteKey("highScoreTable"); // Sert si l'on désire effacer les scores
         GenererTableHighScore();
         //Vérifie si on est sur la scène de fin afin de gérer l'action du bouton de sauvegarde
         if (SceneManager.GetActiveScene().buildIndex == 2)
@@ -46,7 +46,7 @@ public class HighScoreTable : MonoBehaviour
                 if (PlayerPrefs.GetInt("Score") > highScores._highScoreEntryList[9].score)
                 {
                     _saisieNom.SetActive(true);
-                    _imageVaisseau.SetActive(false);
+                    //_imageVaisseau.SetActive(false);
                     _buttonRetour.SetActive(false);
                     _buttonReset.SetActive(false);
                     Button btn = _button.GetComponent<Button>();
@@ -62,7 +62,7 @@ public class HighScoreTable : MonoBehaviour
             else
             {
                 _saisieNom.SetActive(true);
-                _imageVaisseau.SetActive(false);
+                //_imageVaisseau.SetActive(false);
                 _buttonRetour.SetActive(false);
                 _buttonReset.SetActive(false);
                 Button btn = _button.GetComponent<Button>();
@@ -230,7 +230,7 @@ public class HighScoreTable : MonoBehaviour
 
     }
 
-    private void EnregistrerNom()
+    public void EnregistrerNom()
     {
 
         bool valide = false;
@@ -247,9 +247,9 @@ public class HighScoreTable : MonoBehaviour
         {
             AddHighScoreEntry(PlayerPrefs.GetInt("Score"), saisie);
             _saisieNom.SetActive(false);
-            _imageVaisseau.SetActive(true);
-            _buttonRetour.SetActive(true);
-            _buttonReset.SetActive(true);
+            //_imageVaisseau.SetActive(true);
+            //_buttonRetour.SetActive(true);
+            //_buttonReset.SetActive(true);
             EventSystem.current.SetSelectedGameObject(null);
             EventSystem.current.SetSelectedGameObject(_buttonRetour);
             _txtErreur.SetActive(false);
@@ -271,7 +271,7 @@ public class HighScoreTable : MonoBehaviour
 
     private void CreateHighScoreEntryTransform(HighScoreEntry highScoreEntry, Transform container, List<Transform> transformList)
     {
-        float templateHeight = 50f;
+        float templateHeight = 60f;
         Transform entryTransform = Instantiate(_entryTemplate, container);
         RectTransform entryRectTranform = entryTransform.GetComponent<RectTransform>();
         entryRectTranform.anchoredPosition = new Vector2(0f, -templateHeight * transformList.Count);
@@ -287,13 +287,13 @@ public class HighScoreTable : MonoBehaviour
             default:
                 rankString = rank + "TH"; break;
         }
-        //entryTransform.Find("TxtPos").GetComponent<Text>().text = rankString;
+        entryTransform.Find("TxtPos").GetComponent<TMP_Text>().text = rankString;
 
         int score = highScoreEntry.score;
-        //entryTransform.Find("TxtScore").GetComponent<Text>().text = score.ToString();
+        entryTransform.Find("TxtScore").GetComponent<TMP_Text>().text = score.ToString();
 
         string name = highScoreEntry.name;
-        //entryTransform.Find("TxtName").GetComponent<Text>().text = name;
+        entryTransform.Find("TxtName").GetComponent<TMP_Text>().text = name;
 
         if (rank == 1)
         {
@@ -368,7 +368,7 @@ public class HighScoreTable : MonoBehaviour
         _textePass = "";
         _texteEtoiles = "";
         _textEtoiles.text = "";
-        _imageVaisseau.SetActive(false);
+        //_imageVaisseau.SetActive(false);
         _buttonRetour.SetActive(false);
         _buttonReset.SetActive(false);
         Button btn = _buttonPass.GetComponent<Button>();
@@ -382,7 +382,7 @@ public class HighScoreTable : MonoBehaviour
     {
         _saisieNom.SetActive(false);
         _resetScore.SetActive(false);
-        _imageVaisseau.SetActive(true);
+        //_imageVaisseau.SetActive(true);
         _buttonRetour.SetActive(true);
         _buttonReset.SetActive(true);
         EventSystem.current.SetSelectedGameObject(null);
