@@ -17,13 +17,13 @@ public class Slash : MonoBehaviour
     }
     void Start()
         {
-            _damage = _player.Strength * 2;
+            //_damage = _player.Strength * 2;
             StartCoroutine(DestroySlash());
         }
     
         IEnumerator DestroySlash()
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.17f);
             Destroy(this.gameObject);
         }
 

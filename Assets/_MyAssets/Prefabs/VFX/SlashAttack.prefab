@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 4727364788046901220}
   - component: {fileID: 4727364788046901221}
   - component: {fileID: 4727364788046901226}
+  - component: {fileID: 7824322741443927394}
   m_Layer: 0
   m_Name: SlashAttack
-  m_TagString: Untagged
+  m_TagString: Slash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72,12 +73,12 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1588015321
+  m_SortingLayer: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 1ad0cf677f8505149b3443dd31cc5071, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1.26, y: 1.5}
@@ -139,3 +140,17 @@ PolygonCollider2D:
       - {x: 0.36991984, y: -0.18321039}
       - {x: 0.42900226, y: -0.02969476}
       - {x: 0.37874848, y: 0.18255068}
+--- !u!114 &7824322741443927394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4727364788046901222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17cfd12b5b076b2439e8a7ed6f943967, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 0}
+  _nom: 
