@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
 
     protected void Attack1()
     {
-        if(Input.GetButton("Attack1") && Time.time > _canAttack1)
+        if(Input.GetButton("Attack1") && Time.time > _canAttack1 && Time.timeScale == 1)
         {
             int randomSound = Random.Range(0, _Attack1Sound.Length);
             _animation.Attack();
@@ -121,7 +121,7 @@ public class Player : MonoBehaviour
 
     protected void Attack2()
     {
-        if(Input.GetButton("Attack2") && Time.time > _canAttack2)
+        if(Input.GetButton("Attack2") && Time.time > _canAttack2 && Time.timeScale == 1)
         {
             int randomSound = Random.Range(0, _Attack2Sound.Length);
             _animation.Jab();
@@ -148,7 +148,7 @@ public class Player : MonoBehaviour
     }
     protected void Attack3()
     {
-        if(Input.GetButton("Attack3") && Time.time > _canAttack3)
+        if(Input.GetButton("Attack3") && Time.time > _canAttack3 && Time.timeScale == 1)
         {
             _buffParticuleFX.Play();
             //int randomSound = Random.Range(0, _Attack2Sound.Length);
@@ -166,7 +166,7 @@ public class Player : MonoBehaviour
     }
     protected void Attack4()
     {
-        if(Input.GetButton("Attack4") && Time.time > _canAttack4)
+        if(Input.GetButton("Attack4") && Time.time > _canAttack4 && Time.timeScale == 1)
         {
             _shieldIsActive = true;
             //int randomSound = Random.Range(0, _Attack2Sound.Length);

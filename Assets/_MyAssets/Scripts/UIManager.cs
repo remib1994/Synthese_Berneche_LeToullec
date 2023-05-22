@@ -54,12 +54,14 @@ public class UIManager : MonoBehaviour  {
             SceneManager.LoadScene(0);
         }
 
-        if((Input.GetKeyDown(KeyCode.Escape) && !_txtRestart.gameObject.activeSelf) && !_pauseOn)  {
+        if((Input.GetKeyDown(KeyCode.Escape) && !_txtRestart.gameObject.activeSelf) && !_pauseOn)
+        {
             _pausePanel.SetActive(true);
             Time.timeScale = 0;
             _pauseOn = true;
         }
-        else if ((Input.GetKeyDown(KeyCode.Escape) && !_txtRestart.gameObject.activeSelf) && _pauseOn) {
+        else if ((Input.GetKeyDown(KeyCode.Escape) && !_txtRestart.gameObject.activeSelf) && _pauseOn)
+        {
             _pausePanel.SetActive(false);
             Time.timeScale = 1;
             _pauseOn = false;
