@@ -9,6 +9,7 @@ using Assets.HeroEditor4D.Common.Scripts.CharacterScripts;
 using Assets.HeroEditor4D.Common.Scripts.Enums;
 using UnityEngine.Serialization;
 using Pathfinding;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -253,6 +254,8 @@ public class Player : MonoBehaviour
             this.enabled = false;
             _animation.Die();
 
+            StartCoroutine(ChangerDeSceneFin());
+
             _enemySpawner.OnPlayerDeath();
         }
         else
@@ -298,6 +301,12 @@ public class Player : MonoBehaviour
             flashMort.alpha = alpha;
             yield return null;
         }
+    }
+
+    private IEnumerator ChangerDeSceneFin()
+    {
+        yield return new WaitForSeconds(2.5f);
+        SceneManager.LoadScene(2);
     }
 
 }

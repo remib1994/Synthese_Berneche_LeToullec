@@ -566,7 +566,7 @@ MonoBehaviour:
   _health: 0
   _barreDeVie: {fileID: 0}
   _AttackRate: 1
-  _Attack1Prefab: {fileID: 4569973186247697114, guid: 129386af0b9c1774cac1f9679fcb9d5c, type: 3}
+  _Attack1Prefab: {fileID: 4727364788046901222, guid: 561aa380e7e8f0e47b3fb773a287f040, type: 3}
   _Attack2Prefab: {fileID: 8612527724997007791, guid: 6fe2f0651162685479b5b32a01735f94, type: 3}
   _Attack3Prefab: {fileID: 2170741307073530930, guid: f9079e76dadbed740ac44e4d5f487177, type: 3}
   _Attack1Sound:
@@ -577,7 +577,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1970d7c9fbf14fd4eb71891525827eeb, type: 3}
   - {fileID: 8300000, guid: 39c84f116b785934daf4081c35c8b06f, type: 3}
   - {fileID: 8300000, guid: 5f097dd64ee753e41a91b22660b21d3e, type: 3}
-  - {fileID: 8300000, guid: 6d8675766eff3e244b1d54b4513500cc, type: 3}
+  - {fileID: 8300000, guid: b1b5f167e9e78fe4bbb294a39ea58c7f, type: 3}
   - {fileID: 8300000, guid: fcb6c61efaed86547bf2c0214b5a4acd, type: 3}
   _Attack3Sound:
   - {fileID: 8300000, guid: 931c523b30685ce4a85075b08cbc8e20, type: 3}

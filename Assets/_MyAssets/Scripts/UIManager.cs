@@ -16,8 +16,9 @@ public class UIManager : MonoBehaviour  {
     [SerializeField] private Image _livesDisplayImage = default;
     [SerializeField] private Sprite[] _liveSprites = default;
     [SerializeField] private GameObject _pausePanel = default;
+
     private bool _pauseOn = false;
-    
+    public bool _isSoundOn = true;
     // Start is called before the first frame update
 
     private void Start() {
@@ -28,10 +29,20 @@ public class UIManager : MonoBehaviour  {
         UpdateScore();
     }
 
-    private void Update() {
+    private void Update()
+    {
 
-        _txtTemps.text = "Temps : " + Time.time.ToString("f2");
+        _txtTemps.text = "Temps : " + Time.timeSinceLevelLoad.ToString("f2");
         UpdateScore();
+
+        if (_pauseOn && Input.GetKeyDown(KeyCode.Q))
+        {
+            SceneManager.LoadScene(0);
+        }
+        if (_pauseOn && Input.GetKeyDown(KeyCode.S))
+        {
+            ToggleSound();
+        }
 
         // Permet la gestion du panneau de pause (marche/arrêt)
         if ((Input.GetKeyDown(KeyCode.Escape) && !_pauseOn))
@@ -112,5 +123,11 @@ public class UIManager : MonoBehaviour  {
         _pausePanel.SetActive(false);
         Time.timeScale = 1;
         _pauseOn = false;
+    }
+
+    public void ToggleSound()
+    {
+        _isSoundOn = !_isSoundOn;
+        AudioListener.volume =_isSoundOn ? 1 : 0;
     }
 }
