@@ -26,6 +26,7 @@ public class Enemy : MonoBehaviour
     private float currentCooldown = 0f;
 
     private bool isDead = false;
+    [SerializeField] private GameObject _sang;
 
     private void Update()
     {
@@ -146,8 +147,9 @@ public class Enemy : MonoBehaviour
     }
     private IEnumerator DieSequence()
     {
+        Instantiate(_sang, transform.position, Quaternion.identity);
         isDead = true;
-
+        
         GetComponent<AIPath>().enabled = false;
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         GetComponent<Collider2D>().enabled = false;

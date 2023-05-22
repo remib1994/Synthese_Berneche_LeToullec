@@ -197,6 +197,7 @@ MonoBehaviour:
   _character: {fileID: 2921827052403980048}
   _animation: {fileID: 2922764066211177670}
   _animator: {fileID: 0}
+  _sang: {fileID: 710441611242912956, guid: 1410db9664e56304ea0360f66845af6e, type: 3}
 --- !u!1001 &2279332805405774
 PrefabInstance:
   m_ObjectHideFlags: 0
