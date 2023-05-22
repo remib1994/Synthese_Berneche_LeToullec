@@ -35,7 +35,7 @@ public class HighScoreTable : MonoBehaviour
 
     private void Awake()
     {
-        PlayerPrefs.DeleteKey("highScoreTable"); // Sert si l'on désire effacer les scores
+        //PlayerPrefs.DeleteKey("highScoreTable"); // Sert si l'on désire effacer les scores
         GenererTableHighScore();
         //Vérifie si on est sur la scène de fin afin de gérer l'action du bouton de sauvegarde
         if (SceneManager.GetActiveScene().buildIndex == 2)

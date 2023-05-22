@@ -12,11 +12,6 @@ public class UIManager : MonoBehaviour  {
     [SerializeField] private TextMeshProUGUI _txtScore = default;
     [SerializeField] private TextMeshProUGUI _txtTempsPartie = default;
     [SerializeField] private TextMeshProUGUI _txtTemps = default;
-    [SerializeField] private TextMeshProUGUI _txtGameOver = default;
-    [SerializeField] private TextMeshProUGUI _txtRestart = default;
-    [SerializeField] private TextMeshProUGUI _txtQuit = default;
-    [SerializeField] private Image _livesDisplayImage = default;
-    [SerializeField] private Sprite[] _liveSprites = default;
     [SerializeField] private GameObject _pausePanel = default;
 
     private bool _pauseOn = false;
@@ -87,17 +82,15 @@ public class UIManager : MonoBehaviour  {
     }
 
     private void GameOverSequence() {
-        _txtGameOver.gameObject.SetActive(true);
-        _txtRestart.gameObject.SetActive(true);
-        _txtQuit.gameObject.SetActive(true);
+
         StartCoroutine(GameOverBlinkRoutine());
     }
 
     IEnumerator GameOverBlinkRoutine() {
         while (true) {
-            _txtGameOver.gameObject.SetActive(true);
+
             yield return new WaitForSeconds(0.7f);
-            _txtGameOver.gameObject.SetActive(false);
+
             yield return new WaitForSeconds(0.7f);
         }
     }
