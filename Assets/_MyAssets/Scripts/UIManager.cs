@@ -26,10 +26,9 @@ public class UIManager : MonoBehaviour  {
     private void Start()
     {
         _score = 0;
-        _txtScore.text = PlayerPrefs.GetInt("Score").ToString();
+        _txtScore.text = "Score : " + PlayerPrefs.GetInt("Score").ToString();
         _txtTempsPartie.text = "Temps : " + PlayerPrefs.GetFloat("TempsDuJeu").ToString("f2");
         Time.timeScale = 1;
-        UpdateScore();
     }
 
     private void Update()
