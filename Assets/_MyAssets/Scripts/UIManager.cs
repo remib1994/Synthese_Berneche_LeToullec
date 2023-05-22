@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Threading;
 
 public class UIManager : MonoBehaviour  {
     
     [SerializeField] private int _score =  default;
     [SerializeField] private TextMeshProUGUI _txtScore = default;
+    [SerializeField] private TextMeshProUGUI _txtTempsPartie = default;
     [SerializeField] private TextMeshProUGUI _txtTemps = default;
     [SerializeField] private TextMeshProUGUI _txtGameOver = default;
     [SerializeField] private TextMeshProUGUI _txtRestart = default;
@@ -22,7 +24,7 @@ public class UIManager : MonoBehaviour  {
     // Start is called before the first frame update
 
     private void Start() {
-        _score = 0;
+        _score = 0;       
         Time.timeScale = 1;
         UpdateScore();
     }
@@ -33,6 +35,13 @@ public class UIManager : MonoBehaviour  {
         _txtTemps.text = "Temps : " + Time.timeSinceLevelLoad.ToString("f2");
         UpdateScore();
 
+        //Récupère l'index de la scène en cours
+        int noScene = SceneManager.GetActiveScene().buildIndex;
+        if(noScene == (SceneManager.sceneCountInBuildSettings - 2))
+        {
+            _txtTempsPartie.text = "Temps : " + Time.timeSinceLevelLoad.ToString("f2"); 
+        }
+
         if (_pauseOn && Input.GetKeyDown(KeyCode.Q))
         {
             SceneManager.LoadScene(0);
@@ -40,7 +49,7 @@ public class UIManager : MonoBehaviour  {
         if (_pauseOn && Input.GetKeyDown(KeyCode.S))
         {
             ToggleSound();
-        }
+        }            
 
         // Permet la gestion du panneau de pause (marche/arrêt)
         if ((Input.GetKeyDown(KeyCode.Escape) && !_pauseOn))

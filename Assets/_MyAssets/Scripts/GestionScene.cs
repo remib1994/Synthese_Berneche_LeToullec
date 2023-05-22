@@ -1,20 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 //using static System.Net.Mime.MediaTypeNames;
 
 public class GestionScene : MonoBehaviour
 {
-    //Attributs
+    //Attributs        
     [SerializeField] private GameObject _menuInstruction = default;
     [SerializeField] private GameObject _menuOption = default;
-
     [SerializeField] private GameObject _btOption = default;
 
     private bool _menuOuvert = false;
     private bool _menuOptionOuvert = false;
 
+    //Attribut qui contient un objet de type UIManager
+    private UIManager _uiManager;
+
+    //Méthode pour récupérer le gameObject de type UIManager
+    private void start()
+    {
+        _uiManager = FindObjectOfType<UIManager>();  
+    }
+   
     //Méthodes publiques
 
     public void ChangerSceneSuivante()
@@ -52,8 +61,7 @@ public class GestionScene : MonoBehaviour
 
     //Méthode pour recommencer une partie (scène de jeu)    
     public void Recommencer()
-    {
-        //Il faut s'assurer que le temps et le pointage sont remis à zero
+    {                       
         SceneManager.LoadScene(1);        
     }
 
@@ -61,7 +69,7 @@ public class GestionScene : MonoBehaviour
     public void ChargerSceneDepart()
     {
         SceneManager.LoadScene(0);
-        _btOption.SetActive(true);
+        _btOption.SetActive(true);        
     }
 
 }
