@@ -41,6 +41,8 @@ public class Player : MonoBehaviour
     [SerializeField] protected float _volume = default;
     
     private bool _isInvincible = false;
+    private bool _shieldIsActive = false;
+
 
     private EnemySpawner _enemySpawner;
     private float _canAttack1 = -1f;
@@ -72,7 +74,7 @@ public class Player : MonoBehaviour
         _buffParticuleFX = transform.GetChild(1).gameObject.GetComponent<ParticleSystem>();
         _shieldAnimator = _shield.GetComponent<Animator>();
         _buffParticuleFX.Stop();
-        _shield.SetActive(false);
+        //_shield.SetActive(true);
 
 
         _barreDeVie.SetMaxHealth(_healthMax);
@@ -91,7 +93,7 @@ public class Player : MonoBehaviour
 
     protected void Attack1()
     {
-        if(Input.GetButtonDown("Attack1") && Time.time > _canAttack1)
+        if(Input.GetButton("Attack1") && Time.time > _canAttack1)
         {
             int randomSound = Random.Range(0, _Attack1Sound.Length);
             _animation.Attack();
@@ -119,7 +121,7 @@ public class Player : MonoBehaviour
 
     protected void Attack2()
     {
-        if(Input.GetButtonDown("Attack2") && Time.time > _canAttack2)
+        if(Input.GetButton("Attack2") && Time.time > _canAttack2)
         {
             int randomSound = Random.Range(0, _Attack2Sound.Length);
             _animation.Jab();
@@ -146,7 +148,7 @@ public class Player : MonoBehaviour
     }
     protected void Attack3()
     {
-        if(Input.GetButtonDown("Attack3") && Time.time > _canAttack3)
+        if(Input.GetButton("Attack3") && Time.time > _canAttack3)
         {
             _buffParticuleFX.Play();
             //int randomSound = Random.Range(0, _Attack2Sound.Length);
@@ -164,11 +166,11 @@ public class Player : MonoBehaviour
     }
     protected void Attack4()
     {
-        if(Input.GetButtonDown("Attack4") && Time.time > _canAttack4)
+        if(Input.GetButton("Attack4") && Time.time > _canAttack4)
         {
+            _shieldIsActive = true;
             //int randomSound = Random.Range(0, _Attack2Sound.Length);
             _shieldAnimator.SetBool("ShieldActif", true);
-            _shield.SetActive(true);
             _canAttack4 = Time.time + _cdAttack4;
             AudioSource.PlayClipAtPoint(_Attack4Sound[0], transform.position, _volume);
             StartCoroutine(ShieldRoutine());
@@ -180,6 +182,7 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         _shieldAnimator.SetBool("ShieldActif", false);
+        _shieldIsActive= false;
     }
 
     protected void MouvementsJoueur()
@@ -227,10 +230,9 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if (_shield.activeSelf == true)
+        if (_shieldIsActive == true)
         {
-            _shieldAnimator.SetBool("ShieldActif", false);
-            _shield.SetActive(false);
+            return; // dure 5 secondes
         }
         else
         {
@@ -262,7 +264,7 @@ public class Player : MonoBehaviour
     IEnumerator InvincibilityRoutine()
     {
         _isInvincible = true;
-        yield return new WaitForSeconds(0.5f); // D�lai d'invincibilit� d'une seconde
+        yield return new WaitForSeconds(0.5f); // D�lai d'invincibilit� d'une demi seconde
         _isInvincible = false;
     }
 
