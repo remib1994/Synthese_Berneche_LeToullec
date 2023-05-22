@@ -40,6 +40,8 @@ public class Player : MonoBehaviour
     [SerializeField] protected AudioClip[] _DamageSound = default;
 
     [SerializeField] protected float _volume = default;
+
+    private float _timer;
     
     private bool _isInvincible = false;
     private bool _shieldIsActive = false;
@@ -61,10 +63,13 @@ public class Player : MonoBehaviour
     private ParticleSystem _buffParticuleFX;
     private Animator _shieldAnimator;
 
+    private UIManager _uiManager;
+
     [SerializeField] private CanvasGroup flashMort;
 
     void Start()
     {
+        _uiManager = GameObject.FindObjectOfType<UIManager>();
         _healthMax = _strength * 10;
         _health= _strength * 10;
         _character.SetDirection(Vector2.down);
@@ -253,7 +258,12 @@ public class Player : MonoBehaviour
             GetComponent<CapsuleCollider2D>().enabled = false;
             this.enabled = false;
             _animation.Die();
-
+            
+            PlayerPrefs.SetFloat("TempsDuJeu", _uiManager.getTime());
+            PlayerPrefs.SetInt("Score", _uiManager.getScore());
+            PlayerPrefs.Save();
+            Debug.Log(PlayerPrefs.GetFloat("TempsDuJeu", _timer));
+            Debug.Log(PlayerPrefs.GetInt("Score", _uiManager.getScore()));
             StartCoroutine(ChangerDeSceneFin());
 
             _enemySpawner.OnPlayerDeath();
@@ -306,7 +316,13 @@ public class Player : MonoBehaviour
     private IEnumerator ChangerDeSceneFin()
     {
         yield return new WaitForSeconds(2.5f);
+
         SceneManager.LoadScene(2);
+    }
+
+    public float GetTimer()
+    {
+        return _timer;
     }
 
 }

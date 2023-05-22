@@ -484,7 +484,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &246164712
 GameObject:
@@ -940,7 +940,7 @@ GameObject:
   - component: {fileID: 418995765}
   - component: {fileID: 418995764}
   m_Layer: 5
-  m_Name: txtPointage
+  m_Name: txtScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1227,7 +1227,7 @@ Transform:
   m_Children:
   - {fileID: 1733960675}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &589167102
 GameObject:
@@ -1368,7 +1368,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &640337126
 GameObject:
@@ -2862,61 +2862,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1642020007
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1642020009}
-  - component: {fileID: 1642020008}
-  m_Layer: 0
-  m_Name: UIManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1642020008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1642020007}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45a4008b753235b40ae9e8b7b2abf5ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _score: 10
-  _txtScore: {fileID: 418995764}
-  _txtTempsPartie: {fileID: 1745136162}
-  _txtTemps: {fileID: 0}
-  _txtGameOver: {fileID: 0}
-  _txtRestart: {fileID: 0}
-  _txtQuit: {fileID: 0}
-  _livesDisplayImage: {fileID: 0}
-  _liveSprites: []
-  _pausePanel: {fileID: 0}
-  _isSoundOn: 1
---- !u!4 &1642020009
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1642020007}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1683548420
 GameObject:
   m_ObjectHideFlags: 0
@@ -3141,6 +3086,7 @@ GameObject:
   - component: {fileID: 1733960673}
   - component: {fileID: 1733960672}
   - component: {fileID: 1733960676}
+  - component: {fileID: 1733960677}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -3252,6 +3198,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioMixer: {fileID: 24100000, guid: 2b4cc3ea02a6a314d9e4ad6da1ff4a19, type: 2}
+--- !u!114 &1733960677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733960671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45a4008b753235b40ae9e8b7b2abf5ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _score: 0
+  _txtScore: {fileID: 418995764}
+  _txtTempsPartie: {fileID: 1745136162}
+  _txtTemps: {fileID: 0}
+  _txtGameOver: {fileID: 0}
+  _txtRestart: {fileID: 0}
+  _txtQuit: {fileID: 0}
+  _livesDisplayImage: {fileID: 0}
+  _liveSprites: []
+  _pausePanel: {fileID: 0}
+  _isSoundOn: 1
 --- !u!1 &1745136160
 GameObject:
   m_ObjectHideFlags: 0
@@ -3264,7 +3233,7 @@ GameObject:
   - component: {fileID: 1745136163}
   - component: {fileID: 1745136162}
   m_Layer: 5
-  m_Name: txtTemps
+  m_Name: txtTempsPartie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

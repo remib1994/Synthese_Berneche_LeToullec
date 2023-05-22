@@ -23,24 +23,19 @@ public class UIManager : MonoBehaviour  {
     public bool _isSoundOn = true;
     // Start is called before the first frame update
 
-    private void Start() {
-        _score = 0;       
+    private void Start()
+    {
+        _score = 0;
+        _txtScore.text = PlayerPrefs.GetInt("Score").ToString();
+        _txtTempsPartie.text = "Temps : " + PlayerPrefs.GetFloat("TempsDuJeu").ToString("f2");
         Time.timeScale = 1;
         UpdateScore();
     }
 
     private void Update()
     {
-
         _txtTemps.text = "Temps : " + Time.timeSinceLevelLoad.ToString("f2");
         UpdateScore();
-
-        ////Récupère l'index de la scène en cours
-        //int noScene = SceneManager.GetActiveScene().buildIndex;
-        //if (noScene == (SceneManager.sceneCountInBuildSettings - 2))
-        //{
-        //    _txtTempsPartie.text = "Temps : " + Time.timeSinceLevelLoad.ToString("f2");
-        //}
 
         if (_pauseOn && Input.GetKeyDown(KeyCode.Q))
         {
@@ -71,6 +66,11 @@ public class UIManager : MonoBehaviour  {
         //else if (_txtRestart.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Escape)) {
         //    SceneManager.LoadScene(0);
         //}
+    }
+
+    public float getTime()
+    {
+        return Time.timeSinceLevelLoad;
     }
 
     public int getScore()

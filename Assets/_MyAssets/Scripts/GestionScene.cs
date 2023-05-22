@@ -69,7 +69,7 @@ public class GestionScene : MonoBehaviour
     public void ChargerSceneDepart()
     {
         SceneManager.LoadScene(0);
-        _btOption.SetActive(true);        
+        _btOption.SetActive(true);
     }
 
 }
